@@ -1,0 +1,119 @@
+- Features:
+  - Home screen
+    - Registration
+    - Login
+    - OAuth?
+    - About
+    - Sample usage - with pictures and guide
+  - User dashboard
+    - Option to print/send/convert to PDF every single one of these
+    - Your day
+    - Your week
+    - Your month
+    - Your year
+    - Your goals
+    - Your priorities
+  - Your day
+    - #1 priority
+      - Completed
+      - Not Completed
+    - Timeline
+      - Default: 8a - 6p
+      - Users can change daily schedule timeline (more/less hours, starting/ending earlier/later)
+      - Two different types of appointments:
+        - Brackets
+          - Flexible appointments, not set in stone
+        - Boxes
+          - Non negotiables
+          - Ex: meetings, dr appointments, work out classes, etc
+      - Ability to move appointments around -- drag and drop!!
+      - Color-coded shadow system - basically a little glow around appointments
+        - Default = Red, yellow, green
+        - Can change color coded system + add more defaults
+        - Red: not done yet
+        - Yellow: currently working on
+        - Green: Completed
+      - Color-coded fill system - indicate what TYPE of appointment is occurring
+        - School: Blue
+        - Work: Orange
+        - Working out: Pink
+        - Social event: Purplwe
+      - Option to 'done' or 'nvm' a certain task
+        - Default, after the time has passed, is done
+        - Those marked 'done' will be added to accomplishments and have a black 'X' or slash through them
+  - Your week
+    - Priorities for this week
+    - All tasks for this week
+      - Shows all events scheduled
+      - Shows work/school-related events in one section
+      - Shows personal-related events in one section
+    - Reminders for this week
+    - Good things that happened this week
+      - All tasks marked done
+      - Every time you went to work/class
+      - Number of times you looked/logged in the app
+    - What you accomplished this week
+  - Priorities - essentially set up like a kan-ban board
+    - All of these will be FILLED with their corresponding color (r/y/g)
+    - Option to push to to-do list
+  - Your month
+    - X-axis: M T W Th F Sa Su
+    - Y-axis: 1 2 3 4 (5)
+    - Below:
+      - Shows priorites & non negotiables by week
+      - Option to 'show' different events / filter the calendar above
+  - You full year
+  
+
+Plan:
+- Create general wireframe
+- Set up MongoDB 
+  - Users
+    - day
+      - top priority
+      - events
+        - with dates
+    - week
+      - priorities
+      - all tasks
+      - work/school
+      - personal
+      - Reminders
+      - good things
+    - priorities
+    - all tasks
+    - month
+    - year
+    - goals
+- Implement/learn TypeScript
+- Backend 
+  - Server
+  - Auth routes
+  - Day routes
+    - CRUD top priority
+    - CRUD events
+  - Week routes
+    - CRUD this week priorities
+    - CRUD work/school
+    - CRUD personal
+    - CRUD Reminders
+    - CRUD good things 
+  - CRUD all tasks
+  - CRUD goals
+- Woohoo, CRA
+  - Src
+    - Components
+      - Switch
+      - Redirect
+        - Unauthorized
+        - Login
+      - Daily calendar
+      - Monthly calendar
+      - Yearly calendar
+      - Priorities
+      - Good things
+      - Work / school
+      - Personal
+      
+    - Hooks
+
