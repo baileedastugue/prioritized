@@ -68,20 +68,20 @@
 Plan:
 - Create general wireframe
 - Set up MongoDB 
-  - Users
-    - day
-      - top priority
-      - events
+  - Users ***
+    - day ***
+      - top priority ***
+      - events ***
         - with dates
-    - week
-      - priorities
-      - all tasks
-      - work/school
-      - personal
-      - Reminders
+    - week ***
+      - priorities ***
+      - all tasks 
+      - work/school ***
+      - personal ***
+      - Reminders ***
       - good things
-    - priorities
-    - all tasks
+    - all priorities ***
+    - all tasks ***
     - month
     - year
     - goals
