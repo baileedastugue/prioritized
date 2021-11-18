@@ -44,27 +44,27 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { title, description, dateDue, dateCompleted, completed } = req.body;
+    const { title, description, dateDue, dateCompleted, state } = req.body;
     const userId = req.user.userId;
     const reminderFields = {
       title,
       description,
       dateDue,
       dateCompleted,
-      completed,
+      state,
       userId,
     };
     try {
       const newReminder = await Reminder.create(
-        { ...reminderFields }
-        // {
-        //   include: [
-        //     {
-        //       model: User,
-        //       where: { userId: userId },
-        //     },
-        //   ],
-        // }
+        { ...reminderFields },
+        {
+          include: [
+            {
+              model: User,
+              where: { userId: userId },
+            },
+          ],
+        }
       );
       res.json(newReminder);
     } catch (err) {
@@ -85,13 +85,13 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { title, description, dateDue, dateCompleted, completed } = req.body;
+    const { title, description, dateDue, dateCompleted, state } = req.body;
     const reminderFields = {
       title,
       description,
       dateDue,
       dateCompleted,
-      completed,
+      state,
     };
     try {
       const newReminder = await Reminder.update(

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const User = require('./User');
 
 const Event = db.define('event', {
   eventId: {
@@ -9,12 +10,6 @@ const Event = db.define('event', {
     require: true,
     primaryKey: true,
   },
-  userId: {
-    type: Sequelize.UUID,
-    unique: true,
-    require: true,
-    primaryKey: false,
-  },
   title: {
     type: Sequelize.STRING,
     unique: false,
@@ -23,15 +18,19 @@ const Event = db.define('event', {
     type: Sequelize.STRING,
     unique: false,
   },
-  time_start: {
-    type: Sequelize.TIME,
-    defaultValue: Sequelize.NOW,
+  timeStart: {
+    type: Sequelize.DATE,
     unique: false,
   },
-  time_end: {
-    type: Sequelize.TIME,
+  timeEnd: {
+    type: Sequelize.DATE,
     unique: false,
   },
+});
+
+// User.hasMany(Event);
+Event.belongsTo(User, {
+  foreignKey: 'userId',
 });
 
 module.exports = Event;

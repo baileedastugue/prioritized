@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
-const Reminder = require('./Reminder');
-const Event = require('./Event');
 
 const User = db.define('user', {
   userId: {
