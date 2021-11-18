@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
-// @route   POST api/auth
+// @route   POST auth
 // @desc    Authenticate user and get token
 // @access  Public
 router.post(
@@ -64,7 +64,7 @@ router.post(
   }
 );
 
-// @route   GET api/auth
+// @route   GET auth
 // @desc    Get user data
 // @access  Private
 router.get('/', auth, async (req, res) => {

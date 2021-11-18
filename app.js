@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('/', (req, res) => res.send('INDEX'));
 
-// app.use('/reminders', require('./routes/reminders'));
+app.use('/reminders', require('./routes/reminders'));
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
 

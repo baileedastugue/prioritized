@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const db = require('../config/connection');
+const db = require('../config/database');
+const User = require('./User');
 
 const Reminder = db.define('reminder', {
   reminderId: {
@@ -9,12 +10,6 @@ const Reminder = db.define('reminder', {
     require: true,
     primaryKey: true,
   },
-  userId: {
-    type: Sequelize.UUID,
-    unique: true,
-    require: true,
-    primaryKey: false,
-  },
   title: {
     type: Sequelize.STRING,
     unique: false,
@@ -23,24 +18,24 @@ const Reminder = db.define('reminder', {
     type: Sequelize.STRING,
     unique: false,
   },
-  date_due: {
+  dateDue: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW,
     unique: false,
   },
-  date_completed: {
+  dateCompleted: {
     type: Sequelize.DATE,
     unique: false,
   },
-  completed: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
+  state: {
+    type: Sequelize.STRING,
+    defaultValue: 'Not started',
     unique: false,
   },
-  date_completed: {
-    type: Sequelize.DATE,
-    unique: false,
-  },
+});
+
+Reminder.belongsTo(User, {
+  foreignKey: 'userId',
 });
 
 module.exports = Reminder;
