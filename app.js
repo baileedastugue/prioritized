@@ -5,11 +5,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('./config/database');
 
-// test db
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch((err) => console.log('Error: ' + err));
-
 let app = express();
 
 let PORT = process.env.PORT || 5000;
@@ -22,7 +17,10 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('/', (req, res) => res.send('INDEX'));
 
-app.use('/reminders', require('./routes/reminders'));
+// app.use('/reminders', require('./routes/reminders'));
+app.use('/users', require('./routes/users'));
+
+// db.sync();
 
 app.listen(PORT, () => {
   console.log('App running on localhost:' + PORT);

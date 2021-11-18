@@ -2,21 +2,38 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const User = db.define('user', {
-  username: {
+  userId: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    unique: true,
+    require: true,
+    primaryKey: true,
+  },
+  email: {
     type: Sequelize.STRING,
     unique: true,
+    require: true,
+    validate: {
+      isEmail: true,
+    },
   },
   password: {
     type: Sequelize.STRING,
     unique: false,
+    require: true,
+    validate: {
+      len: [6],
+    },
   },
-  first_name: {
+  firstName: {
     type: Sequelize.STRING,
     unique: false,
+    require: true,
   },
-  last_name: {
+  lastName: {
     type: Sequelize.STRING,
     unique: false,
+    require: true,
   },
 });
 

@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const Priority = db.define('priority', {
-  life_segment: {
+  lifeSegment: {
     type: Sequelize.STRING,
     unique: false,
   },
-  priority_level: {
+  priorityLevel: {
     type: Sequelize.INTEGER,
     unique: false,
   },
