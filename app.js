@@ -22,6 +22,8 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('/', (req, res) => res.send('INDEX'));
 
+app.use('/reminders', require('./routes/reminders'));
+
 app.listen(PORT, () => {
   console.log('App running on localhost:' + PORT);
 });
