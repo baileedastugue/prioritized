@@ -28,6 +28,9 @@ router.post(
         where: {
           email: email,
         },
+        attributes: {
+          exclude: ['password'],
+        },
       });
       if (!user) {
         return res
