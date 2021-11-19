@@ -6,7 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
-} from './types';
+} from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
