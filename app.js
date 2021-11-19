@@ -19,6 +19,7 @@ app.get('/', (req, res) => res.send('INDEX'));
 
 app.use('/reminders', require('./routes/reminders'));
 app.use('/events', require('./routes/events'));
+app.use('/priorities', require('./routes/priorities'));
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
 

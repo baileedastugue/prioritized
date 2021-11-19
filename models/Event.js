@@ -10,6 +10,16 @@ const Event = db.define('event', {
     require: true,
     primaryKey: true,
   },
+  userId: {
+    type: Sequelize.UUID,
+    require: true,
+    allowNull: false,
+    references: {
+      model: 'User',
+      key: 'userId',
+    },
+    onDelete: 'CASCADE',
+  },
   title: {
     type: Sequelize.STRING,
     unique: false,
@@ -26,10 +36,22 @@ const Event = db.define('event', {
     type: Sequelize.DATE,
     unique: false,
   },
+  lifeSegment: {
+    type: Sequelize.STRING,
+    defaultValue: 'Unassigned',
+    unique: false,
+  },
+  priorityLevel: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    unique: false,
+  },
 });
 
-// User.hasMany(Event);
 Event.belongsTo(User, {
+  foreignKey: 'userId',
+});
+User.hasMany(Event, {
   foreignKey: 'userId',
 });
 

@@ -12,12 +12,12 @@ const User = require('../models/User');
 router.get('/', auth, async (req, res) => {
   try {
     const userId = req.user.userId;
-    console.log(userId);
     const events = await Event.findAll({
       include: [
         {
           model: User,
           where: { userId: userId },
+          attributes: { exclude: ['password'] },
         },
       ],
     });
