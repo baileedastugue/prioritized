@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const { Op } = require('sequelize');
-const { check, validationResult } = require('express-validator');
 
 const Event = require('../models/Event');
 const Reminder = require('../models/Reminder');

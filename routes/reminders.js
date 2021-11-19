@@ -49,7 +49,7 @@ router.post(
     const reminderFields = {
       title,
       description,
-      dateDue,
+      dateDue: new Date(dateDue),
       dateCompleted,
       state,
       userId,
