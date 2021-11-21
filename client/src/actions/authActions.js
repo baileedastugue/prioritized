@@ -55,13 +55,13 @@ export const registerUser =
 export const loginUser =
   ({ email, password }) =>
   async (dispatch) => {
-    console.log('this was triggered in actions');
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
     const body = JSON.stringify({ email, password });
+    console.log(body);
     try {
       const res = await axios.post('/auth', body, config);
       dispatch({

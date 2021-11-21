@@ -15,7 +15,6 @@ const AlertDiv = ({ alerts, removeAlert }) => {
 
   useEffect(() => {
     if (alerts.length > 0 && alerts !== null) setAlertOpen(true);
-    console.log(alerts);
   }, [alerts]);
 
   return (

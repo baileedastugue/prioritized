@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Grid, TextField } from '@mui/material';
 
@@ -14,11 +15,11 @@ const SignInForm = (props) => {
   const { email, password } = formData;
 
   const onChange = (event) => {
-    setFormData({ ...setFormData, [event.target.name]: event.target.value });
+    console.log(formData);
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const onSubmit = async (event) => {
-    console.log('this happened');
     event.preventDefault();
     try {
       console.log(email, password);
@@ -27,6 +28,10 @@ const SignInForm = (props) => {
       console.error(err);
     }
   };
+
+  if (props.isAuth) {
+    return <Navigate to='/home' />;
+  }
 
   return (
     <form onSubmit={(e) => onSubmit(e)}>
