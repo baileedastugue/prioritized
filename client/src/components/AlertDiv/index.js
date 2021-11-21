@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { Snackbar, Alert } from '@mui/material';
+import { removeAlert } from '../../actions/alertActions';
 
-const AlertDiv = ({ alerts }) => {
+const AlertDiv = ({ alerts, removeAlert }) => {
   const [alertOpen, setAlertOpen] = useState(true);
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event, alertToClose) => {
+    event.preventDefault();
     setAlertOpen(false);
+    removeAlert(alertToClose.id);
   };
 
   useEffect(() => {
-    setAlertOpen(true);
+    if (alerts.length > 0 && alerts !== null) setAlertOpen(true);
+    console.log(alerts);
   }, [alerts]);
 
   return (
@@ -20,13 +23,12 @@ const AlertDiv = ({ alerts }) => {
     alerts.length > 0 &&
     alerts.map((alert) => (
       <Snackbar
-        key={alert.key}
+        key={alert.id}
         open={alertOpen}
-        onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert
-          onClose={handleClose}
+          onClose={(e) => handleClose(e, alert)}
           severity={alert.alertType}
           className='alert'
         >
@@ -45,4 +47,4 @@ const mapStateToProps = (state) => ({
   alerts: state.alert,
 });
 
-export default connect(mapStateToProps)(AlertDiv);
+export default connect(mapStateToProps, { removeAlert })(AlertDiv);

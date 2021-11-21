@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { setAlert } from './alertActions';
+import { setAlert } from './alertActions';
 import setAuthToken from '../utils/setAuthToken';
 import {
   REGISTER_SUCCESS,
@@ -55,6 +55,7 @@ export const registerUser =
 export const loginUser =
   ({ email, password }) =>
   async (dispatch) => {
+    console.log('this was triggered in actions');
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +70,10 @@ export const loginUser =
       });
       dispatch(loadUser());
     } catch (err) {
-      console.log(err);
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      }
       dispatch({
         type: LOGIN_FAIL,
       });

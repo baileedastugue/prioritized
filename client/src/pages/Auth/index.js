@@ -1,13 +1,16 @@
 import React from 'react';
 import AlertDiv from '../../components/AlertDiv';
+import { Container } from '@mui/material';
+
+import SignInForm from '../../components/authentication/SignInForm';
 
 const Auth = () => {
-  console.log('hello from auth');
   return (
-    <div>
+    <Container>
       <h1>Login page</h1>
+      <SignInForm />
       <AlertDiv />
-    </div>
+    </Container>
   );
 };
 

@@ -10,7 +10,7 @@ import PrivateRoute from './components/authentication/PrivateRoute';
 
 import setAuthToken from './utils/setAuthToken';
 import { Provider } from 'react-redux';
-import store from './store';
+import Store from './store';
 import { loadUser } from './actions/authActions';
 import Home from './pages/Home';
 
@@ -20,10 +20,10 @@ if (localStorage.token) {
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    Store.dispatch(loadUser());
   });
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Welcome />} />
