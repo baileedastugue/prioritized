@@ -29,7 +29,7 @@ const App = () => {
           <Route exact path='/' element={<Welcome />} />
           <Route exact path='/userAuth' element={<Auth />} />
           <Route
-            path='/home'
+            path='/dashboard'
             element={
               <PrivateRoute>
                 <Home />

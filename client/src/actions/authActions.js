@@ -15,6 +15,7 @@ export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
+  console.log(localStorage.token);
   try {
     const res = await axios.get('/auth');
     dispatch({
@@ -45,7 +46,10 @@ export const registerUser =
       });
       dispatch(loadUser());
     } catch (err) {
-      console.log(err);
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      }
       dispatch({
         type: REGISTER_FAIL,
       });
@@ -61,7 +65,6 @@ export const loginUser =
       },
     };
     const body = JSON.stringify({ email, password });
-    console.log(body);
     try {
       const res = await axios.post('/auth', body, config);
       dispatch({
@@ -81,6 +84,7 @@ export const loginUser =
   };
 
 export const logoutUser = () => (dispatch) => {
+  console.log('did we get here?');
   dispatch({
     type: LOGOUT_SUCCESS,
   });
