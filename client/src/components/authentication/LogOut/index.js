@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import { logoutUser } from '../../../actions/authActions';
-import Button from '@mui/material/Button';
+import { IconButton } from '@mui/material/';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const LogOut = (props) => {
   const handleOnClick = (event) => {
@@ -14,9 +15,9 @@ const LogOut = (props) => {
   if (!props.isAuth) return <Navigate to='/' />;
 
   return (
-    <Button variant='outlined' onClick={(e) => handleOnClick(e)}>
-      Log Out
-    </Button>
+    <IconButton variant='outlined' onClick={(e) => handleOnClick(e)}>
+      <LogoutIcon />
+    </IconButton>
   );
 };
 

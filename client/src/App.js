@@ -2,17 +2,17 @@
 // import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PrivateRoute from './components/authentication/PrivateRoute';
+import { Provider } from 'react-redux';
+import Store from './store';
+import setAuthToken from './utils/setAuthToken';
+
+import { loadUser } from './actions/authActions';
 
 import Auth from './pages/Auth';
 import Welcome from './pages/Welcome';
-
-import PrivateRoute from './components/authentication/PrivateRoute';
-
-import setAuthToken from './utils/setAuthToken';
-import { Provider } from 'react-redux';
-import Store from './store';
-import { loadUser } from './actions/authActions';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import NavBar from './components/layout/NavBar';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -24,6 +24,7 @@ const App = () => {
   });
   return (
     <Provider store={Store}>
+      <NavBar />
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Welcome />} />
@@ -32,7 +33,7 @@ const App = () => {
             path='/dashboard'
             element={
               <PrivateRoute>
-                <Home />
+                <Dashboard />
               </PrivateRoute>
             }
           />

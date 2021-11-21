@@ -74,6 +74,29 @@ router.post(
   }
 );
 
+// @route   GET events/:eventId
+// @desc    Get a single event
+// @access  Private
+router.get('/:eventId', auth, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const event = await Event.findByPk(req.params.eventId, {
+      where: {
+        userId: userId,
+      },
+    });
+    if (!event) {
+      res.status(400).json({
+        msg: 'This event does not exist',
+      });
+    }
+    res.json(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route   PUT events/:eventId
 // @desc    Update an event
 // @access  Private
@@ -105,31 +128,8 @@ router.put('/:eventId', auth, async (req, res) => {
   }
 });
 
-// @route   GET events/:eventId
-// @desc    Get a single event
-// @access  Private
-router.get('/:eventId', auth, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const event = await Event.findByPk(req.params.eventId, {
-      where: {
-        userId: userId,
-      },
-    });
-    if (!event) {
-      res.status(400).json({
-        msg: 'This event does not exist',
-      });
-    }
-    res.json(event);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
-
-// @route   GET events/:eventId
-// @desc    Get a single event
+// @route   DELETE events/:eventId
+// @desc    Delete a single event
 // @access  Private
 router.delete('/:eventId', auth, async (req, res) => {
   try {

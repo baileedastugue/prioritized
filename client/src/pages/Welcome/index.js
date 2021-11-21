@@ -1,16 +1,26 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router';
+import PropTypes from 'prop-types';
 
-const Welcome = () => {
+import Link from '@mui/material/Link';
+
+const Welcome = ({ isAuth }) => {
+  if (isAuth) return <Navigate to='/dashboard' />;
   return (
     <div>
       <h1>Welcome</h1>
+      <Link href='/userAuth'>Sign Up/Sign In</Link>
     </div>
   );
 };
 
-// Welcome.propTypes = {
+Welcome.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+};
 
-// }
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuthenticated,
+});
 
-export default Welcome;
+export default connect(mapStateToProps)(Welcome);

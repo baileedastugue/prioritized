@@ -13,12 +13,15 @@ router.get('/', auth, async (req, res) => {
   try {
     const userId = req.user.userId;
     const reminders = await Reminder.findAll({
-      include: [
-        {
-          model: User,
-          where: { userId: userId },
-        },
-      ],
+      where: {
+        userId: userId,
+      },
+      // include: [
+      //   {
+      //     model: User,
+      //     where: { userId: userId },
+      //   },
+      // ],
     });
     if (reminders.length === 0) {
       res.status(400).json({
@@ -77,38 +80,30 @@ router.post(
 // @route   PUT reminders/:reminderId
 // @desc    Update a reminder
 // @access  Private
-router.put(
-  '/:reminderId',
-  [auth, [check('title', 'A reminder title is required').not().isEmpty()]],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    const { title, description, dateDue, dateCompleted, state } = req.body;
-    const reminderFields = {
-      title,
-      description,
-      dateDue,
-      dateCompleted,
-      state,
-    };
-    try {
-      const newReminder = await Reminder.update(
-        { ...reminderFields },
-        {
-          where: {
-            reminderId: req.params.reminderId,
-          },
-        }
-      );
-      res.json(newReminder);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-    }
+router.put('/:reminderId', [auth], async (req, res) => {
+  const { title, description, dateDue, dateCompleted, state } = req.body;
+  const reminderFields = {
+    title,
+    description,
+    dateDue,
+    dateCompleted,
+    state,
+  };
+  try {
+    const newReminder = await Reminder.update(
+      { ...reminderFields },
+      {
+        where: {
+          reminderId: req.params.reminderId,
+        },
+      }
+    );
+    res.json(newReminder);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
-);
+});
 
 // @route   GET reminders/:reminderId
 // @desc    Get a single reminder
