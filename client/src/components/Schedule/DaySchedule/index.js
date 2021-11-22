@@ -2,14 +2,34 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { Card, Typography } from '@mui/material';
+
 import { getDaysTasks } from '../../../actions/scheduleActions';
 
-const DaySchedule = ({ getDaysTasks, daysEvents, daysReminders }) => {
+const DaySchedule = ({ date, getDaysTasks, daysEvents, daysReminders }) => {
   useEffect(() => {
-    getDaysTasks(2021, 11, 18);
-  }, [getDaysTasks]);
-  console.log(daysEvents, daysReminders);
-  return <div></div>;
+    const dateObj = {
+      year: date.getUTCFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+    };
+
+    getDaysTasks(dateObj);
+  }, [getDaysTasks, date]);
+  return daysEvents.length > 0 ? (
+    daysEvents.map((event) => (
+      <Card>
+        <Typography variant='h6' component='p'>
+          {event.title}
+        </Typography>
+        <Typography variant='p' component='p'>
+          {event.description}
+        </Typography>
+      </Card>
+    ))
+  ) : (
+    <Typography>No events scheduled for today</Typography>
+  );
 };
 
 DaySchedule.propTypes = {

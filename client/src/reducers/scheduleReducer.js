@@ -7,7 +7,6 @@ const initialState = {
   isLoading: true,
   reminders: [],
   events: [],
-  error: {},
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -24,7 +23,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        reminders: [],
+        events: [],
       };
     default:
       return state;
