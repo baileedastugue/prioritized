@@ -1,24 +1,40 @@
 import axios from 'axios';
 import { setAlert } from './alertActions';
 
-import { VIEW_DAY_SCHEDULE_SUCCESS, VIEW_DAY_SCHEDULE_FAIL } from './types';
+import {
+  VIEW_DAY_SCHEDULE_SUCCESS,
+  VIEW_DAY_SCHEDULE_FAIL,
+  SET_SCHEDULE_DATE_SUCCESS,
+  SET_SCHEDULE_DATE_FAIL,
+} from './types';
+
+export const setDate = (date) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SET_SCHEDULE_DATE_SUCCESS,
+      payload: date,
+    });
+  } catch (err) {
+    dispatch({
+      type: SET_SCHEDULE_DATE_FAIL,
+    });
+  }
+};
 
 export const getDaysTasks =
   ({ year, month, day }) =>
   async (dispatch) => {
-    console.log(year, month, day);
     try {
+      dispatch(setDate({ year, month, day }));
       const res = await axios.get(`/schedule/${year}/${month}/${day}`);
       dispatch({
         type: VIEW_DAY_SCHEDULE_SUCCESS,
         payload: res.data,
       });
-      console.log(res.data);
     } catch (err) {
-      const errors = err.response.data.errors;
-      console.log(err.response);
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      const error = err.response.data.msg;
+      if (error) {
+        dispatch(setAlert(error, 'error'));
       }
       dispatch({
         type: VIEW_DAY_SCHEDULE_FAIL,

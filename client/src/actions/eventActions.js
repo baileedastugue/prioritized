@@ -30,34 +30,27 @@ export const getAllEvents = () => async (dispatch) => {
   }
 };
 
-export const addNewEvent =
-  ({ title, description, timeStart, timeEnd }) =>
-  async (dispatch) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      title,
-      description,
-      timeStart,
-      timeEnd,
-    });
-    try {
-      const res = await axios.post('/events', body, config);
-      dispatch({
-        type: ADD_EVENT_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      console.log(err);
-      dispatch({
-        type: ADD_EVENT_FAIL,
-        payload: err,
-      });
-    }
+export const addNewEvent = (eventInfo) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
   };
+  const body = JSON.stringify(eventInfo);
+  try {
+    const res = await axios.post('/events', body, config);
+    dispatch({
+      type: ADD_EVENT_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: ADD_EVENT_FAIL,
+      payload: err,
+    });
+  }
+};
 
 export const viewEvent =
   ({ eventId }) =>

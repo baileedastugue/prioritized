@@ -3,7 +3,7 @@ import getMonth from '../../../utils/getMonth';
 
 import { Typography } from '@mui/material';
 
-const Date = ({ date }) => {
+const DateTitle = ({ date }) => {
   const dateObj = {
     year: date.getUTCFullYear(),
     month: date.getMonth() + 1,
@@ -19,4 +19,4 @@ const Date = ({ date }) => {
   );
 };
 
-export default Date;
+export default DateTitle;

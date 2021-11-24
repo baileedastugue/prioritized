@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 
+import SubmitButton from '../../layout/buttons/SubmitButton';
 import { registerUser } from '../../../actions/authActions';
 
 const SignUpForm = (props) => {
@@ -85,9 +86,7 @@ const SignUpForm = (props) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button variant='contained' size='medium' type='submit'>
-            Sign Up
-          </Button>
+          <SubmitButton>Sign Up</SubmitButton>
         </Grid>
       </Grid>
     </form>
