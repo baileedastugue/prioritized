@@ -24,8 +24,8 @@ export default function (state = initialState, action) {
     case VIEW_DAY_SCHEDULE_SUCCESS:
       return {
         ...state,
-        reminders: action.payload[0].reminders,
-        events: action.payload[0].events,
+        reminders: action.payload[0].userReminder,
+        events: action.payload[0].userEvent,
         isLoading: false,
       };
     case SET_SCHEDULE_DATE_FAIL:

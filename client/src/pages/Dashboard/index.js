@@ -1,24 +1,29 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Navigate } from 'react-router';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import StaticDatePicker from '@mui/lab/DatePicker';
+import TextField from '@mui/material/TextField';
+
 import PropTypes from 'prop-types';
 
 import { getAllReminders } from '../../actions/reminderActions';
 import { setDate } from '../../actions/scheduleActions';
 
-// import EventsList from '../../components/Events/EventsList';
-// import DateSelector from '../../components/Schedule/DateSelector';
 import DaySchedule from '../../components/Schedule/DaySchedule';
 import DateTitle from '../../components/Schedule/DateTitle';
-import Calendar from 'react-calendar';
-// import AddButton from '../../components/layout/buttons/AddButton';
+import { getDaysTasks } from '../../actions/scheduleActions';
+
 import AddEvent from '../../components/Events/AddEvent';
 
 const Dashboard = ({
   getAllReminders,
-  remindersObj,
-  reminders,
-  dateState,
   setDate,
+  isAuth,
+  getDaysTasks,
+  daysEvents,
+  daysReminders,
 }) => {
   useEffect(() => {
     getAllReminders();
@@ -26,38 +31,55 @@ const Dashboard = ({
 
   const [calDate, setCalDate] = useState(new Date());
 
-  useEffect(
-    (calDate) => {
-      setDate(calDate);
-    },
-    [setDate, calDate]
-  );
+  useEffect(() => {
+    setDate(calDate);
+  }, [setDate, calDate]);
+
+  useEffect(() => {
+    getDaysTasks(calDate);
+  }, [getDaysTasks, calDate]);
+
+  if (!isAuth) return <Navigate to='/' />;
 
   return (
     <Fragment>
-      <Calendar onChange={setCalDate} value={calDate} />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <StaticDatePicker
+          displayStaticWrapperAs='desktop'
+          value={calDate}
+          onChange={(calDate) => {
+            setCalDate(calDate);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
       <DateTitle date={calDate} />
-      {/* <DateSelector onClick={onClick}/> */}
       <AddEvent />
-      <DaySchedule date={calDate} />
+      <DaySchedule daysEvents={daysEvents} />
     </Fragment>
   );
 };
 
 Dashboard.propTypes = {
-  getAllReminders: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
-  remindersObj: PropTypes.object.isRequired,
-  reminders: PropTypes.array.isRequired,
   dateState: PropTypes.object.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  getDaysTasks: PropTypes.func.isRequired,
+  daysEvents: PropTypes.array.isRequired,
+  daysReminders: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   remindersObj: state.reminder,
   reminders: state.reminder.reminders,
   dateState: state.schedule.date,
+  isAuth: state.auth.isAuthenticated,
+  daysEvents: state.schedule.events,
+  daysReminders: state.schedule.reminders,
 });
 
-export default connect(mapStateToProps, { getAllReminders, setDate })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  getAllReminders,
+  setDate,
+  getDaysTasks,
+})(Dashboard);

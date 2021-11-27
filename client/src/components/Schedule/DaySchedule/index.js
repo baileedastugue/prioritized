@@ -1,21 +1,8 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { Card, Typography } from '@mui/material';
 
-import { getDaysTasks } from '../../../actions/scheduleActions';
-
-const DaySchedule = ({ date, getDaysTasks, daysEvents, daysReminders }) => {
-  useEffect(() => {
-    const dateObj = {
-      year: date.getUTCFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-    };
-
-    getDaysTasks(dateObj);
-  }, [getDaysTasks, date]);
+const DaySchedule = ({ daysEvents }) => {
   return daysEvents.length > 0 ? (
     daysEvents.map((event) => (
       <Card>
@@ -25,6 +12,12 @@ const DaySchedule = ({ date, getDaysTasks, daysEvents, daysReminders }) => {
         <Typography variant='p' component='p'>
           {event.description}
         </Typography>
+        <Typography variant='p' component='p'>
+          time start: {new Date(event.timeStart).toLocaleString()}
+        </Typography>
+        <Typography variant='p' component='p'>
+          time end: {new Date(event.timeEnd).toLocaleString()}
+        </Typography>
       </Card>
     ))
   ) : (
@@ -32,15 +25,4 @@ const DaySchedule = ({ date, getDaysTasks, daysEvents, daysReminders }) => {
   );
 };
 
-DaySchedule.propTypes = {
-  getDaysTasks: PropTypes.func.isRequired,
-  daysEvents: PropTypes.array.isRequired,
-  daysReminders: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  daysEvents: state.schedule.events,
-  daysReminders: state.schedule.reminders,
-});
-
-export default connect(mapStateToProps, { getDaysTasks })(DaySchedule);
+export default DaySchedule;

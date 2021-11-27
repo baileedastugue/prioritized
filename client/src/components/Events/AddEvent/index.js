@@ -23,8 +23,8 @@ const AddEvent = ({ addNewEvent }) => {
     description: '',
     lifeSegment: '',
     priorityLevel: '',
-    timeStart: new Date().toUTCString(),
-    timeEnd: new Date().toUTCString(),
+    timeStart: new Date(),
+    timeEnd: new Date(),
   });
 
   const { title, description, timeStart, timeEnd, lifeSegment, priorityLevel } =
@@ -61,11 +61,11 @@ const AddEvent = ({ addNewEvent }) => {
   };
 
   const handleStartTimeChange = (newValue) => {
-    setFormData({ ...formData, timeStart: newValue.toUTCString() });
+    setFormData({ ...formData, timeStart: newValue });
   };
 
   const handleEndTimeChange = (newValue) => {
-    setFormData({ ...formData, timeEnd: newValue.toUTCString() });
+    setFormData({ ...formData, timeEnd: newValue });
   };
 
   return (

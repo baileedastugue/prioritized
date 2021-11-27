@@ -12,6 +12,7 @@ import {
   UPDATE_EVENT_SUCCESS,
   UPDATE_EVENT_FAIL,
 } from './types';
+import { getDaysTasks } from './scheduleActions';
 
 export const getAllEvents = () => async (dispatch) => {
   try {
@@ -30,21 +31,24 @@ export const getAllEvents = () => async (dispatch) => {
   }
 };
 
-export const addNewEvent = (eventInfo) => async (dispatch) => {
+export const addNewEvent = (eventInfo) => async (dispatch, getState) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   const body = JSON.stringify(eventInfo);
+  console.log(body);
   try {
     const res = await axios.post('/events', body, config);
     dispatch({
       type: ADD_EVENT_SUCCESS,
       payload: res.data,
     });
+    console.log(res.data);
+    dispatch(getDaysTasks(getState().schedule.date));
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
     dispatch({
       type: ADD_EVENT_FAIL,
       payload: err,
