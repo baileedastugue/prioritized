@@ -39,13 +39,30 @@ router.get('/', auth, async (req, res) => {
 // @access  Private
 router.post(
   '/',
-  [auth, [check('title', 'An event title is required').not().isEmpty()]],
+  [
+    auth,
+    [
+      check('title', 'An event title is required').not().isEmpty(),
+      check('timeStart', 'Event start time must be before event end time')
+        .exists()
+        .custom((value, { req }) => value < req.body.timeEnd),
+    ],
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { title, description, timeStart, timeEnd } = req.body;
+    const {
+      title,
+      description,
+      timeStart,
+      timeEnd,
+      lifeSegment,
+      priorityLevel,
+    } = req.body;
+    console.log('time start:', timeStart);
+    console.log('time end:', timeEnd);
     const userId = req.user.userId;
     const eventFields = {
       title,
@@ -53,6 +70,8 @@ router.post(
       userId,
       timeStart,
       timeEnd,
+      lifeSegment,
+      priorityLevel,
     };
     try {
       const newEvent = await Event.create(

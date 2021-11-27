@@ -58,6 +58,7 @@ Reminder.belongsTo(User, {
 });
 User.hasMany(Reminder, {
   foreignKey: 'userId',
+  as: 'userReminder',
 });
 
 module.exports = Reminder;

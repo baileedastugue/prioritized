@@ -11,9 +11,9 @@ const { sequelize } = require('../models/Reminder');
 // @route   GET /schedule/:year/:month/:day
 // @desc    Get all tasks for day
 // @access  Private
-router.get('/:year/:month/:day', auth, async (req, res) => {
-  const { year, month, day } = req.params;
-  const nextDay = parseInt(day) + 1;
+router.get('/:startDate/:endDate', auth, async (req, res) => {
+  const newDate = new Date(req.params.startDate);
+  const nextDate = new Date(req.params.endDate);
   try {
     const userId = req.user.userId;
     const allPriorities = await User.findAll({
@@ -24,45 +24,34 @@ router.get('/:year/:month/:day', auth, async (req, res) => {
       include: [
         {
           model: Reminder,
+          as: 'userReminder',
+          required: false,
           where: {
-            userId: userId,
-            [Op.and]: [
-              sequelize.where(
-                sequelize.fn('date', sequelize.col('dateDue')),
-                '=',
-                `${year}-${month}-${day}`
-              ),
-              sequelize.where(
-                sequelize.fn('date', sequelize.col('dateDue')),
-                '<',
-                `${year}-${month}-${nextDay}`
-              ),
-            ],
+            dateDue: {
+              [Op.gte]: newDate,
+              [Op.lt]: nextDate,
+            },
           },
         },
         {
           model: Event,
+          as: 'userEvent',
+          required: false,
           where: {
-            userId: userId,
-            [Op.and]: [
-              sequelize.where(
-                sequelize.fn('date', sequelize.col('timeStart')),
-                '>=',
-                `${year}-${month}-${day}`
-              ),
-              sequelize.where(
-                sequelize.fn('date', sequelize.col('timeStart')),
-                '<',
-                `${year}-${month}-${nextDay}`
-              ),
-            ],
+            timeStart: {
+              [Op.gte]: newDate,
+              [Op.lt]: nextDate,
+            },
           },
         },
       ],
     });
-    if (allPriorities.length === 0) {
+    if (
+      allPriorities[0].dataValues.userEvent.length === 0 &&
+      allPriorities[0].dataValues.userReminder.length === 0
+    ) {
       res.status(400).json({
-        msg: 'There are no priorities assigned',
+        msg: 'There are no tasks for this date',
       });
     } else {
       res.json(allPriorities);
