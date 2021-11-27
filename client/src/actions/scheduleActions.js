@@ -28,6 +28,7 @@ export const getDaysTasks = (date) => async (dispatch) => {
   const nextDate = new Date(date);
   newDate.setHours(0, 0, 0, 0);
   nextDate.setHours(24, 0, 0, 0);
+  console.log(newDate, nextDate);
   try {
     const res = await axios.get(`/schedule/${newDate}/${nextDate}`);
     dispatch({

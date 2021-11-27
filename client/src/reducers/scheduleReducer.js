@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         date: action.payload,
+        isLoading: false,
       };
     }
     case VIEW_DAY_SCHEDULE_SUCCESS:
@@ -31,6 +32,7 @@ export default function (state = initialState, action) {
     case SET_SCHEDULE_DATE_FAIL:
       return {
         ...state,
+        isLoading: false,
         date: {},
       };
     case VIEW_DAY_SCHEDULE_FAIL:

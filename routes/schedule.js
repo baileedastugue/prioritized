@@ -14,6 +14,8 @@ const { sequelize } = require('../models/Reminder');
 router.get('/:startDate/:endDate', auth, async (req, res) => {
   const newDate = new Date(req.params.startDate);
   const nextDate = new Date(req.params.endDate);
+  console.log(req.params.startDate);
+  console.log(req.params.endDate);
   try {
     const userId = req.user.userId;
     const allPriorities = await User.findAll({

@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { setAlert } from './alertActions';
+import { setAlert } from './alertActions';
 import {
   GET_EVENTS_SUCCESS,
   GET_EVENTS_FAIL,
@@ -17,7 +17,6 @@ import { getDaysTasks } from './scheduleActions';
 export const getAllEvents = () => async (dispatch) => {
   try {
     const res = await axios.get('/events');
-    console.log(res.data);
     dispatch({
       type: GET_EVENTS_SUCCESS,
       payload: res.data,
@@ -38,17 +37,18 @@ export const addNewEvent = (eventInfo) => async (dispatch, getState) => {
     },
   };
   const body = JSON.stringify(eventInfo);
-  console.log(body);
   try {
     const res = await axios.post('/events', body, config);
     dispatch({
       type: ADD_EVENT_SUCCESS,
       payload: res.data,
     });
-    console.log(res.data);
     dispatch(getDaysTasks(getState().schedule.date));
   } catch (err) {
-    console.log(err.response);
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+    }
     dispatch({
       type: ADD_EVENT_FAIL,
       payload: err,

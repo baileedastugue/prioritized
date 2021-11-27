@@ -1,10 +1,6 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import StaticDatePicker from '@mui/lab/DatePicker';
-import TextField from '@mui/material/TextField';
 
 import PropTypes from 'prop-types';
 
@@ -13,69 +9,58 @@ import { setDate } from '../../actions/scheduleActions';
 
 import DaySchedule from '../../components/Schedule/DaySchedule';
 import DateTitle from '../../components/Schedule/DateTitle';
-import { getDaysTasks } from '../../actions/scheduleActions';
-
+import DateSelector from '../../components/Schedule/DateSelector';
 import AddEvent from '../../components/Events/AddEvent';
+import { getDaysTasks } from '../../actions/scheduleActions';
 
 const Dashboard = ({
   getAllReminders,
-  setDate,
   isAuth,
   getDaysTasks,
   daysEvents,
-  daysReminders,
+  selectedDate,
+  schedLoading,
 }) => {
   useEffect(() => {
     getAllReminders();
   }, [getAllReminders]);
 
-  const [calDate, setCalDate] = useState(new Date());
-
   useEffect(() => {
-    setDate(calDate);
-  }, [setDate, calDate]);
-
-  useEffect(() => {
-    getDaysTasks(calDate);
-  }, [getDaysTasks, calDate]);
+    if (!schedLoading) {
+      getDaysTasks(selectedDate);
+    }
+  }, [getDaysTasks, selectedDate, schedLoading]);
 
   if (!isAuth) return <Navigate to='/' />;
 
   return (
     <Fragment>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <StaticDatePicker
-          displayStaticWrapperAs='desktop'
-          value={calDate}
-          onChange={(calDate) => {
-            setCalDate(calDate);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
-      <DateTitle date={calDate} />
-      <AddEvent />
+      <DateTitle date={selectedDate} />
+      <DateSelector />
       <DaySchedule daysEvents={daysEvents} />
+      <AddEvent />
     </Fragment>
   );
 };
 
 Dashboard.propTypes = {
   setDate: PropTypes.func.isRequired,
-  dateState: PropTypes.object.isRequired,
   isAuth: PropTypes.bool.isRequired,
   getDaysTasks: PropTypes.func.isRequired,
   daysEvents: PropTypes.array.isRequired,
   daysReminders: PropTypes.array.isRequired,
+  selectedDate: PropTypes.object.isRequired,
+  schedLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   remindersObj: state.reminder,
   reminders: state.reminder.reminders,
-  dateState: state.schedule.date,
   isAuth: state.auth.isAuthenticated,
   daysEvents: state.schedule.events,
   daysReminders: state.schedule.reminders,
+  selectedDate: state.schedule.date,
+  schedLoading: state.schedule.isLoading,
 });
 
 export default connect(mapStateToProps, {
