@@ -98,20 +98,19 @@ export const updateEvent =
     }
   };
 
-export const deleteEvent =
-  ({ eventId }) =>
-  async (dispatch) => {
-    try {
-      const res = await axios.delete(`/events/${eventId}`);
-      dispatch({
-        type: DELETE_EVENT_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      console.log(err);
-      dispatch({
-        type: DELETE_EVENT_FAIL,
-        payload: err,
-      });
-    }
-  };
+export const deleteEvent = (eventId) => async (dispatch, getState) => {
+  try {
+    const res = await axios.delete(`/events/${eventId}`);
+    dispatch({
+      type: DELETE_EVENT_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(getDaysTasks(getState().schedule.date));
+  } catch (err) {
+    console.log(err.response);
+    dispatch({
+      type: DELETE_EVENT_FAIL,
+      payload: err,
+    });
+  }
+};

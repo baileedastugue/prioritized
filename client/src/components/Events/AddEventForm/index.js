@@ -73,8 +73,6 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
     setFormData({ ...formData, timeEnd: newValue });
   };
 
-  // console.log(handleClose());
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add New Event</DialogTitle>
@@ -108,7 +106,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   fullWidth
@@ -120,7 +118,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   fullWidth
@@ -132,7 +130,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel id='selectPriorityLevelLabel'>
                   Priority Level
@@ -152,7 +150,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel id='selectLifeSegmentLabel'>
                   Life Segment

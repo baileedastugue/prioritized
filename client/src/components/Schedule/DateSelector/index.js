@@ -18,17 +18,26 @@ const DateSelector = ({ setDate }) => {
   const onIconClick = () => {
     setOpen(true);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     setDate(calDate);
   }, [setDate, calDate]);
 
   return (
     <Fragment>
-      <IconButton variant='outlined' onClick={onIconClick}>
+      <IconButton
+        variant='outlined'
+        onClick={onIconClick}
+        sx={{ display: 'inline', padding: 0 }}
+      >
         <EventIcon />
       </IconButton>
 
-      <Dialog open={open}>
+      <Dialog open={open} onClose={handleClose}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StaticDatePicker
             displayStaticWrapperAs='desktop'
@@ -36,7 +45,7 @@ const DateSelector = ({ setDate }) => {
             variant='static'
             onChange={(calDate) => {
               setCalDate(calDate);
-              setOpen(false);
+              handleClose();
             }}
             renderInput={(params) => <TextField {...params} />}
           />

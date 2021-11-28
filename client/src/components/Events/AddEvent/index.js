@@ -10,7 +10,6 @@ const AddEvent = () => {
   };
 
   const handleClose = () => {
-    console.log('line 13 handle close');
     setAddEventOpen(false);
   };
 

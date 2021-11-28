@@ -40,6 +40,7 @@ const AlertDiv = ({ alerts, removeAlert }) => {
 
 AlertDiv.propTypes = {
   alerts: PropTypes.array.isRequired,
+  removeAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -1,23 +1,52 @@
 import React from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { Card, Typography } from '@mui/material';
+import { deleteEvent } from '../../../actions/eventActions';
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 
-const DaySchedule = ({ daysEvents }) => {
+const DaySchedule = ({ daysEvents, deleteEvent }) => {
+  const handleDeleteClick = (event, id) => {
+    deleteEvent(id);
+  };
+
   return daysEvents.length > 0 ? (
     daysEvents.map((event) => (
-      <Card>
-        <Typography variant='h6' component='p'>
-          {event.title}
-        </Typography>
-        <Typography variant='p' component='p'>
-          {event.description}
-        </Typography>
-        <Typography variant='p' component='p'>
-          time start: {new Date(event.timeStart).toLocaleString()}
-        </Typography>
-        <Typography variant='p' component='p'>
-          time end: {new Date(event.timeEnd).toLocaleString()}
-        </Typography>
+      <Card key={event.eventId}>
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography variant='h5' component='div'>
+                {event.title}
+              </Typography>
+            </Grid>
+            <Grid item xs={1} sm={1}>
+              {event.priorityLevel}
+            </Grid>
+            <Grid item xs={11} sm={10}>
+              <Typography variant='body1'>{event.description}</Typography>
+              <Typography variant='body2'>
+                Time Start: {new Date(event.timeStart).toLocaleTimeString()}
+              </Typography>
+              <Typography variant='body2'>
+                Time End: {new Date(event.timeEnd).toLocaleTimeString()}
+              </Typography>
+              <Typography variant='body2'>
+                Life Segment: {event.lifeSegment}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
+              <Button onClick={(e) => handleDeleteClick(e, event.eventId)}>
+                <DeleteIcon />
+              </Button>
+              <Button>
+                <EditIcon />
+              </Button>
+            </Grid>
+          </Grid>
+        </CardContent>
       </Card>
     ))
   ) : (
@@ -25,4 +54,13 @@ const DaySchedule = ({ daysEvents }) => {
   );
 };
 
-export default DaySchedule;
+DaySchedule.propTypes = {
+  deleteEvent: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  events: state.event,
+});
+
+export default connect(mapStateToProps, { deleteEvent })(DaySchedule);

@@ -1,17 +1,18 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
-
 import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
 
 import { getAllReminders } from '../../actions/reminderActions';
 import { setDate } from '../../actions/scheduleActions';
+import { getDaysTasks } from '../../actions/scheduleActions';
 
 import DaySchedule from '../../components/Schedule/DaySchedule';
 import DateTitle from '../../components/Schedule/DateTitle';
 import DateSelector from '../../components/Schedule/DateSelector';
 import AddEvent from '../../components/Events/AddEvent';
-import { getDaysTasks } from '../../actions/scheduleActions';
 
 const Dashboard = ({
   getAllReminders,
@@ -35,8 +36,19 @@ const Dashboard = ({
 
   return (
     <Fragment>
-      <DateTitle date={selectedDate} />
-      <DateSelector />
+      <Grid
+        container
+        direction='row'
+        alignItems='center'
+        justifyContent='start'
+      >
+        <Grid item>
+          <DateTitle date={selectedDate} />
+        </Grid>
+        <Grid item>
+          <DateSelector />
+        </Grid>
+      </Grid>
       <DaySchedule daysEvents={daysEvents} />
       <AddEvent />
     </Fragment>
