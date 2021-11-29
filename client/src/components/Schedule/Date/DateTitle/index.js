@@ -6,7 +6,13 @@ import { Typography } from '@mui/material';
 const DateTitle = ({ date, onClick }) => {
   const newDate = new Date(date);
   return (
-    <Typography variant='h5' onClick={onClick} component='h2' my={2}>
+    <Typography
+      variant='h5'
+      onClick={onClick}
+      component='h2'
+      my={2}
+      sx={{ display: 'inline-block' }}
+    >
       {getMonth(newDate.getMonth())} {newDate.getDate()},{' '}
       {newDate.getFullYear()}
     </Typography>

@@ -11,12 +11,14 @@ import { getDaysTasks } from '../../actions/scheduleActions';
 import DaySchedule from '../../components/Schedule/DaySchedule';
 import DateSelector from '../../components/Schedule/Date/DateSelector';
 import AddEvent from '../../components/Events/Add/AddEvent';
+import ViewReminders from '../../components/Reminders/ViewReminders';
 
 const Dashboard = ({
   getAllReminders,
   isAuth,
   getDaysTasks,
   daysEvents,
+  daysReminders,
   selectedDate,
   schedLoading,
 }) => {
@@ -42,6 +44,7 @@ const Dashboard = ({
       >
         <Grid item>
           <DateSelector />
+          <ViewReminders dueToday={daysReminders} />
         </Grid>
       </Grid>
       <DaySchedule daysEvents={daysEvents} />

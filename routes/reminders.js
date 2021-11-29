@@ -16,12 +16,6 @@ router.get('/', auth, async (req, res) => {
       where: {
         userId: userId,
       },
-      // include: [
-      //   {
-      //     model: User,
-      //     where: { userId: userId },
-      //   },
-      // ],
     });
     if (reminders.length === 0) {
       res.status(400).json({
