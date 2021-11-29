@@ -43,9 +43,11 @@ const ViewReminders = ({ dueToday }) => {
         }}
       >
         <Typography sx={{ p: 2 }}>Today's reminders</Typography>
-        {dueToday.map((rem) => (
-          <Reminder reminder={rem} />
-        ))}
+        {dueToday.length > 0 ? (
+          dueToday.map((rem) => <Reminder reminder={rem} />)
+        ) : (
+          <Typography sx={{ p: 2 }}>No reminders due today!</Typography>
+        )}
       </Popover>
     </Fragment>
   );
