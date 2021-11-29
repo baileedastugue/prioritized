@@ -13,6 +13,7 @@ import Auth from './pages/Auth';
 import Welcome from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
+// import Footer from './components/layout/Footer';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -39,6 +40,7 @@ const App = () => {
           />
         </Routes>
       </BrowserRouter>
+      {/* <Footer /> */}
     </Provider>
   );
 };

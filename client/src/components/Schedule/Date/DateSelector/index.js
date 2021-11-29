@@ -6,16 +6,16 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import TextField from '@mui/material/TextField';
 
-import { IconButton, Dialog } from '@mui/material';
-import EventIcon from '@mui/icons-material/Event';
+import { Dialog } from '@mui/material';
+import DateTitle from '../DateTitle';
 
-import { setDate } from '../../../actions/scheduleActions';
+import { setDate } from '../../../../actions/scheduleActions';
 
 const DateSelector = ({ setDate }) => {
   const [calDate, setCalDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  const onIconClick = () => {
+  const onClick = () => {
     setOpen(true);
   };
 
@@ -29,13 +29,14 @@ const DateSelector = ({ setDate }) => {
 
   return (
     <Fragment>
-      <IconButton
+      {/* <IconButton
         variant='outlined'
         onClick={onIconClick}
         sx={{ display: 'inline', padding: 0 }}
       >
         <EventIcon />
-      </IconButton>
+      </IconButton> */}
+      <DateTitle onClick={onClick} date={calDate} />
 
       <Dialog open={open} onClose={handleClose}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>

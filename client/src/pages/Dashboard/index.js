@@ -9,9 +9,8 @@ import { setDate } from '../../actions/scheduleActions';
 import { getDaysTasks } from '../../actions/scheduleActions';
 
 import DaySchedule from '../../components/Schedule/DaySchedule';
-import DateTitle from '../../components/Schedule/DateTitle';
-import DateSelector from '../../components/Schedule/DateSelector';
-import AddEvent from '../../components/Events/AddEvent';
+import DateSelector from '../../components/Schedule/Date/DateSelector';
+import AddEvent from '../../components/Events/Add/AddEvent';
 
 const Dashboard = ({
   getAllReminders,
@@ -39,11 +38,8 @@ const Dashboard = ({
         container
         direction='row'
         alignItems='center'
-        justifyContent='start'
+        justifyContent='center'
       >
-        <Grid item>
-          <DateTitle date={selectedDate} />
-        </Grid>
         <Grid item>
           <DateSelector />
         </Grid>

@@ -10,8 +10,8 @@ const AddEventButton = ({ onClick }) => {
       onClick={onClick}
       sx={{
         position: 'fixed',
-        right: '50px',
-        bottom: '50px',
+        right: '30px',
+        bottom: '30px',
       }}
     >
       <AddIcon />
