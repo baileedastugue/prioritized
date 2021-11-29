@@ -9,13 +9,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CircleIcon from '@mui/icons-material/Circle';
 
 const Reminder = ({ reminder }) => {
-  const renderSwitch = (status) => {
-    switch (status) {
-      case 'completed':
+  const renderSwitch = (state) => {
+    console.log(state);
+    switch (state) {
+      case 'Completed':
         return 'success';
-      case 'in progress':
+      case 'In progress':
         return 'warning';
-      case 'not started':
+      case 'Not started':
       default:
         return 'error';
     }
@@ -30,7 +31,7 @@ const Reminder = ({ reminder }) => {
       >
         <Typography>{reminder.title}</Typography>
         <CircleIcon
-          color={renderSwitch(reminder.status)}
+          color={renderSwitch(reminder.state)}
           sx={{ marginLeft: '5px' }}
         />
       </AccordionSummary>
