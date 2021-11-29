@@ -75,22 +75,38 @@ export const viewEvent =
   };
 
 export const updateEvent =
-  ({ eventId, title, description, timeStart, timeEnd }) =>
-  async (dispatch) => {
+  ({
+    eventId,
+    title,
+    description,
+    timeStart,
+    timeEnd,
+    lifeSegment,
+    priorityLevel,
+  }) =>
+  async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    const body = JSON.stringify({ title, description, timeStart, timeEnd });
+    const body = JSON.stringify({
+      title,
+      description,
+      timeStart,
+      timeEnd,
+      lifeSegment,
+      priorityLevel,
+    });
     try {
       const res = await axios.put(`/events/${eventId}`, body, config);
       dispatch({
         type: UPDATE_EVENT_SUCCESS,
         payload: res.data,
       });
+      dispatch(getDaysTasks(getState().schedule.date));
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
       dispatch({
         type: UPDATE_EVENT_FAIL,
         payload: err,

@@ -61,8 +61,6 @@ router.post(
       lifeSegment,
       priorityLevel,
     } = req.body;
-    console.log('time start:', timeStart);
-    console.log('time end:', timeEnd);
     const userId = req.user.userId;
     const eventFields = {
       title,
@@ -124,12 +122,15 @@ router.put('/:eventId', auth, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { title, description, timeStart, timeEnd } = req.body;
+  const { title, description, timeStart, timeEnd, lifeSegment, priorityLevel } =
+    req.body;
   const eventFields = {
     title,
     description,
     timeStart,
     timeEnd,
+    lifeSegment,
+    priorityLevel,
   };
   try {
     const newEvent = await Event.update(

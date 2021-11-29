@@ -2,7 +2,6 @@ import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
 import { getAllReminders } from '../../actions/reminderActions';

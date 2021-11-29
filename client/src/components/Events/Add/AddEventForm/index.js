@@ -18,8 +18,8 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
-import { addNewEvent } from '../../../actions/eventActions';
-import SubmitButton from '../../layout/buttons/SubmitButton';
+import { addNewEvent } from '../../../../actions/eventActions';
+import SubmitButton from '../../../layout/buttons/SubmitButton';
 
 const AddEventForm = ({ addNewEvent, open, handleClose }) => {
   const [formData, setFormData] = useState({
@@ -182,6 +182,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
 
 AddEventForm.propTypes = {
   addNewEvent: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

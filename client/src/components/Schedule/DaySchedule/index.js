@@ -1,6 +1,5 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -8,6 +7,7 @@ import { deleteEvent } from '../../../actions/eventActions';
 import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import Priority from '../../Priority';
 import LifeSegment from '../../LifeSegment';
+import EditEvent from '../../Events/Edit/EditEvent';
 
 const DaySchedule = ({ daysEvents, deleteEvent }) => {
   const handleDeleteClick = (event, id) => {
@@ -50,9 +50,7 @@ const DaySchedule = ({ daysEvents, deleteEvent }) => {
               <Button onClick={(e) => handleDeleteClick(e, event.eventId)}>
                 <DeleteIcon />
               </Button>
-              <Button>
-                <EditIcon />
-              </Button>
+              <EditEvent event={event} />
             </Grid>
           </Grid>
         </CardContent>
