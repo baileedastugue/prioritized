@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { deleteEvent } from '../../../actions/eventActions';
 import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import Priority from '../../Priority';
+import LifeSegment from '../../LifeSegment';
 
 const DaySchedule = ({ daysEvents, deleteEvent }) => {
   const handleDeleteClick = (event, id) => {
@@ -34,7 +35,7 @@ const DaySchedule = ({ daysEvents, deleteEvent }) => {
                 justifyContent: 'center',
               }}
             >
-              {event.lifeSegment}
+              <LifeSegment lifeSegment={event.lifeSegment} />
             </Grid>
             <Grid item xs={11} sm={10} sx={{ padding: '10px' }}>
               <Typography variant='body1'>{event.description}</Typography>
