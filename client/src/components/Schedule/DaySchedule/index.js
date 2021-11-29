@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { deleteEvent } from '../../../actions/eventActions';
 import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
+import Priority from '../../Priority';
 
 const DaySchedule = ({ daysEvents, deleteEvent }) => {
   const handleDeleteClick = (event, id) => {
@@ -14,27 +15,34 @@ const DaySchedule = ({ daysEvents, deleteEvent }) => {
 
   return daysEvents.length > 0 ? (
     daysEvents.map((event) => (
-      <Card key={event.eventId}>
+      <Card key={event.eventId} sx={{ margin: '0 0 15px' }}>
         <CardContent>
           <Grid container>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ position: 'relative' }}>
               <Typography variant='h5' component='div'>
                 {event.title}
               </Typography>
+              <Priority priorityLevel={event.priorityLevel} />
             </Grid>
-            <Grid item xs={1} sm={1}>
-              {event.priorityLevel}
+            <Grid
+              item
+              xs={1}
+              sm={1}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}
+            >
+              {event.lifeSegment}
             </Grid>
-            <Grid item xs={11} sm={10}>
+            <Grid item xs={11} sm={10} sx={{ padding: '10px' }}>
               <Typography variant='body1'>{event.description}</Typography>
               <Typography variant='body2'>
                 Time Start: {new Date(event.timeStart).toLocaleTimeString()}
               </Typography>
               <Typography variant='body2'>
                 Time End: {new Date(event.timeEnd).toLocaleTimeString()}
-              </Typography>
-              <Typography variant='body2'>
-                Life Segment: {event.lifeSegment}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
