@@ -1,41 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
 } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CircleIcon from '@mui/icons-material/Circle';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteReminder from '../DeleteReminder';
+import UpdateState from '../UpdateState';
 
 const Reminder = ({ reminder }) => {
-  const renderSwitch = (state) => {
-    switch (state) {
-      case 0:
-        return 'error';
-      case 1:
-        return 'warning';
-      case 2:
-        return 'success';
-      case 3:
-      default:
-        return 'disabled';
-    }
+  const [accordianExpanded, setAccordianExpanded] = useState(false);
+  const handleExpansion = (event, expanded) => {
+    setAccordianExpanded(expanded);
   };
 
   return (
-    <Accordion>
+    <Accordion onChange={(e, expanded) => handleExpansion(e, expanded)}>
       <AccordionSummary
-        expandIcon={<ArrowDropDownIcon />}
+        expandIcon={<MoreHorizIcon />}
         aria-controls={`${reminder.title}-content`}
         id={`${reminder.title}-header`}
       >
         <Typography>{reminder.title}</Typography>
-        <CircleIcon
-          color={renderSwitch(reminder.state)}
-          sx={{ marginLeft: '5px' }}
-        />
+        {!accordianExpanded && <UpdateState reminder={reminder} />}
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
@@ -50,6 +38,7 @@ const Reminder = ({ reminder }) => {
           <Typography>Description: {reminder.description}</Typography>
         )}
         <DeleteReminder reminderId={reminder.reminderId} />
+        <UpdateState reminder={reminder} />
       </AccordionDetails>
     </Accordion>
   );

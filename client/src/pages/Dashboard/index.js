@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
@@ -26,13 +26,16 @@ const Dashboard = ({
 }) => {
   const [inProgressReminders, setInProgressReminders] = useState([]);
 
+  const inProgressCallback = useCallback(() => {
+    setInProgressReminders(
+      reminders.filter((reminder) => reminder.state === 1)
+    );
+  }, [reminders]);
+
   useEffect(() => {
     getAllReminders();
-    setInProgressReminders(
-      reminders.filter((reminder) => reminder.state === 2)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAllReminders]);
+    inProgressCallback();
+  }, [getAllReminders, inProgressCallback]);
 
   useEffect(() => {
     if (!schedLoading) {

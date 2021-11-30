@@ -11,6 +11,8 @@ import {
   UPDATE_REMINDER_FAIL,
   GET_REMINDERS_STATE_SUCCESS,
   GET_REMINDERS_STATE_FAIL,
+  UPDATE_REMINDER_STATE_SUCCESS,
+  UPDATE_REMINDER_STATE_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +36,7 @@ export default function (state = initialState, action) {
       };
     case ADD_REMINDER_SUCCESS:
     case UPDATE_REMINDER_SUCCESS:
+    case UPDATE_REMINDER_STATE_SUCCESS:
     case VIEW_REMINDER_SUCCESS:
       return {
         ...state,
@@ -51,8 +54,9 @@ export default function (state = initialState, action) {
     case DELETE_REMINDER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
       };
+    case UPDATE_REMINDER_STATE_FAIL:
     case GET_REMINDERS_STATE_FAIL:
     case UPDATE_REMINDER_FAIL:
     case DELETE_REMINDER_FAIL:

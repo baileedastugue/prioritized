@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 
 const Reminder = require('../models/Reminder');
 const User = require('../models/User');
+const { sequelize } = require('../models/User');
 
 // @route   GET reminders
 // @desc    Get all reminders for user
@@ -186,6 +187,33 @@ router.get('/:state', auth, async (req, res) => {
     } else {
       res.json(reminders);
     }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   PUT reminders/state/:reminderId
+// @desc    Update a reminder
+// @access  Private
+router.put('/state/:reminderId/', [auth], async (req, res) => {
+  const { state } = req.body;
+  const newState = {
+    state,
+  };
+  console.log(newState);
+  console.log(req.params.reminderId);
+  try {
+    const newReminder = await Reminder.update(
+      { ...newState },
+      {
+        returning: true,
+        where: {
+          reminderId: req.params.reminderId,
+        },
+      }
+    );
+    res.json(newReminder[1]);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

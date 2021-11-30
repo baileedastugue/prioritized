@@ -14,6 +14,8 @@ import {
   UPDATE_REMINDER_FAIL,
   GET_REMINDERS_STATE_SUCCESS,
   GET_REMINDERS_STATE_FAIL,
+  UPDATE_REMINDER_STATE_SUCCESS,
+  UPDATE_REMINDER_STATE_FAIL,
 } from './types';
 
 export const getAllReminders = () => async (dispatch) => {
@@ -91,7 +93,16 @@ export const viewReminder =
   };
 
 export const updateReminder =
-  ({ reminderId, title, description, dateDue, dateCompleted, state }) =>
+  ({
+    reminderId,
+    title,
+    description,
+    dateDue,
+    dateCompleted,
+    state,
+    lifeSegment,
+    priorityLevel,
+  }) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -104,6 +115,8 @@ export const updateReminder =
       dateDue,
       dateCompleted,
       state,
+      lifeSegment,
+      priorityLevel,
     });
     try {
       const res = await axios.put(`/reminders/${reminderId}`, body, config);
@@ -150,6 +163,37 @@ export const getRemindersState =
     } catch (err) {
       dispatch({
         type: GET_REMINDERS_STATE_FAIL,
+        payload: err,
+      });
+    }
+  };
+
+export const updateReminderState =
+  (reminderId, state) => async (dispatch, getState) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      state,
+    });
+    try {
+      const res = await axios.put(
+        `/reminders/state/${reminderId}`,
+        body,
+        config
+      );
+      dispatch({
+        type: UPDATE_REMINDER_STATE_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(getDaysTasks(getState().schedule.date));
+      dispatch(getAllReminders());
+    } catch (err) {
+      console.log(err.response);
+      dispatch({
+        type: UPDATE_REMINDER_STATE_FAIL,
         payload: err,
       });
     }
