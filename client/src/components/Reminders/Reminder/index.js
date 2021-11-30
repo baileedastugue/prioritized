@@ -23,7 +23,9 @@ const Reminder = ({ reminder }) => {
         id={`${reminder.title}-header`}
       >
         <Typography>{reminder.title}</Typography>
-        {!accordianExpanded && <UpdateState reminder={reminder} />}
+        {!accordianExpanded && (
+          <UpdateState reminder={reminder} clickable={false} />
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
@@ -38,7 +40,7 @@ const Reminder = ({ reminder }) => {
           <Typography>Description: {reminder.description}</Typography>
         )}
         <DeleteReminder reminderId={reminder.reminderId} />
-        <UpdateState reminder={reminder} />
+        <UpdateState reminder={reminder} clickable={true} />
       </AccordionDetails>
     </Accordion>
   );

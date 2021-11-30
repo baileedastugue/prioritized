@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { updateReminderState } from '../../../actions/reminderActions';
 import CircleIcon from '@mui/icons-material/Circle';
 
-const UpdateState = ({ reminder, updateReminderState }) => {
+const UpdateState = ({ reminder, updateReminderState, clickable }) => {
   const handleClick = async (event) => {
     const state = reminder.state === 3 ? 0 : reminder.state + 1;
     await updateReminderState(reminder.reminderId, state);
@@ -31,7 +31,7 @@ const UpdateState = ({ reminder, updateReminderState }) => {
 
   return (
     <CircleIcon
-      onClick={(e) => handleClick(e)}
+      onClick={clickable && ((e) => handleClick(e))}
       color={renderSwitch(reminder.state)}
       sx={{ marginLeft: '5px' }}
     />
