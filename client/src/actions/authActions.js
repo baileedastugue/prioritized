@@ -83,7 +83,6 @@ export const loginUser =
   };
 
 export const logoutUser = () => (dispatch) => {
-  console.log('did we get here?');
   dispatch({
     type: LOGOUT_SUCCESS,
   });

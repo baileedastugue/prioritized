@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CircleIcon from '@mui/icons-material/Circle';
+import DeleteReminder from '../DeleteReminder';
 
 const Reminder = ({ reminder }) => {
   const renderSwitch = (state) => {
@@ -45,7 +46,10 @@ const Reminder = ({ reminder }) => {
             Completed on {new Date(reminder.dateCompleted).toLocaleDateString()}
           </Typography>
         )}
-        <Typography>Description: {reminder.description}</Typography>
+        {reminder.description && (
+          <Typography>Description: {reminder.description}</Typography>
+        )}
+        <DeleteReminder reminderId={reminder.reminderId} />
       </AccordionDetails>
     </Accordion>
   );

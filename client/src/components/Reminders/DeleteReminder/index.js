@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteReminder } from '../../../actions/eventActions';
+import { deleteReminder } from '../../../actions/reminderActions';
 import { Button } from '@mui/material';
 
-const DeleteReminder = ({ event, deleteReminder }) => {
+const DeleteReminder = ({ reminderId, deleteReminder }) => {
   const handleDeleteClick = (event, id) => {
     deleteReminder(id);
   };
   return (
-    <Button onClick={(e) => handleDeleteClick(e, event.eventId)}>
+    <Button onClick={(e) => handleDeleteClick(e, reminderId)}>
       <DeleteIcon />
     </Button>
   );

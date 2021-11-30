@@ -6,7 +6,6 @@ import { Backdrop, Button, Divider, Popover, Typography } from '@mui/material';
 import Reminder from '../Reminder';
 
 const ViewReminders = ({ dueToday, inProgress }) => {
-  console.log(inProgress);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {

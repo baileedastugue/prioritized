@@ -10,7 +10,6 @@ export const setAlert = (msg, alertType) => (dispatch) => {
 };
 
 export const removeAlert = (id) => (dispatch) => {
-  console.log(id);
   dispatch({
     type: REMOVE_ALERT,
     payload: id,

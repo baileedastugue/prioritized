@@ -120,23 +120,23 @@ export const updateReminder =
     }
   };
 
-export const deleteReminder =
-  ({ reminderId }) =>
-  async (dispatch) => {
-    try {
-      const res = await axios.delete(`/reminders/${reminderId}`);
-      dispatch({
-        type: DELETE_REMINDER_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      console.log(err);
-      dispatch({
-        type: DELETE_REMINDER_FAIL,
-        payload: err,
-      });
-    }
-  };
+export const deleteReminder = (reminderId) => async (dispatch, getState) => {
+  try {
+    const res = await axios.delete(`/reminders/${reminderId}`);
+    dispatch({
+      type: DELETE_REMINDER_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(getDaysTasks(getState().schedule.date));
+    dispatch(getAllReminders());
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: DELETE_REMINDER_FAIL,
+      payload: err,
+    });
+  }
+};
 
 export const getRemindersState =
   ({ state }) =>
