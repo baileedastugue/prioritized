@@ -11,6 +11,7 @@ import { getDaysTasks } from '../../actions/scheduleActions';
 import DaySchedule from '../../components/Schedule/DaySchedule';
 import DateSelector from '../../components/Schedule/Date/DateSelector';
 import AddEvent from '../../components/Events/Add/AddEvent';
+import AddReminder from '../../components/Reminders/Add/AddReminder';
 import ViewReminders from '../../components/Reminders/ViewReminders';
 
 const Dashboard = ({
@@ -49,6 +50,7 @@ const Dashboard = ({
       </Grid>
       <DaySchedule daysEvents={daysEvents} />
       <AddEvent />
+      <AddReminder />
     </Fragment>
   );
 };

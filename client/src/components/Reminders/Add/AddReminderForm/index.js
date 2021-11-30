@@ -14,44 +14,44 @@ import {
   MenuItem,
   TextField,
 } from '@mui/material';
-import DateTimePicker from '@mui/lab/DateTimePicker';
+import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
-import { addNewEvent } from '../../../../actions/eventActions';
+import { addNewReminder } from '../../../../actions/reminderActions';
 import SubmitButton from '../../../layout/buttons/SubmitButton';
 
-const AddEventForm = ({ addNewEvent, open, handleClose }) => {
+const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     lifeSegment: '',
-    priorityLevel: '',
-    timeStart: new Date(),
-    timeEnd: new Date(),
+    priorityLevel: 'No priority',
+    dateDue: new Date(),
+    state: 'Not started',
   });
 
-  const { title, description, timeStart, timeEnd, lifeSegment, priorityLevel } =
+  const { title, description, dateDue, state, lifeSegment, priorityLevel } =
     formData;
 
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addNewEvent({
+      await addNewReminder({
         title,
         description,
-        timeStart,
-        timeEnd,
+        dateDue,
         lifeSegment,
+        state,
         priorityLevel,
       });
       await setFormData({
         title: '',
         description: '',
         lifeSegment: '',
-        priorityLevel: '',
-        timeStart: new Date().toUTCString(),
-        timeEnd: new Date().toUTCString(),
+        priorityLevel: 'No priority',
+        dateDue: new Date(),
+        state: 'Not started',
       });
       handleClose();
     } catch (err) {
@@ -65,17 +65,13 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
     }
   };
 
-  const handleStartTimeChange = (newValue) => {
+  const handleDateDueChange = (newValue) => {
     setFormData({ ...formData, timeStart: newValue });
-  };
-
-  const handleEndTimeChange = (newValue) => {
-    setFormData({ ...formData, timeEnd: newValue });
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add New Event</DialogTitle>
+      <DialogTitle>Add New Reminder</DialogTitle>
       <DialogContent>
         <form onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
@@ -85,7 +81,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                 id='title'
                 name='title'
                 value={title}
-                label='Event title'
+                label='Reminder title'
                 type='title'
                 variant='standard'
                 onChange={(e) => handleChange(e)}
@@ -99,7 +95,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                   id='description'
                   name='description'
                   value={description}
-                  label='Event description'
+                  label='Reminder description'
                   type='description'
                   variant='standard'
                   onChange={(e) => handleChange(e)}
@@ -108,27 +104,32 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
+                <DatePicker
                   fullWidth
-                  label='Start time'
-                  value={timeStart}
+                  label='Date Due'
+                  value={dateDue}
                   name='timeStart'
-                  onChange={handleStartTimeChange}
+                  onChange={handleDateDueChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                  fullWidth
-                  label='End time'
-                  value={timeEnd}
-                  name='timeEnd'
-                  onChange={handleEndTimeChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <FormControl fullWidth>
+                <InputLabel id='selectStateLabel'>State</InputLabel>
+                <Select
+                  labelId='selectStateLabel'
+                  id='selectState'
+                  value={state}
+                  name='state'
+                  label='Current State'
+                  onChange={(e) => handleChange(e)}
+                >
+                  <MenuItem value={1}>Not started</MenuItem>
+                  <MenuItem value={2}>In progress</MenuItem>
+                  <MenuItem value={3}>Complete</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
@@ -171,7 +172,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
               </FormControl>
             </Grid>
             <DialogActions>
-              <SubmitButton>Create event</SubmitButton>
+              <SubmitButton>Create reminder</SubmitButton>
             </DialogActions>
           </Grid>
         </form>
@@ -180,8 +181,8 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
   );
 };
 
-AddEventForm.propTypes = {
-  addNewEvent: PropTypes.func.isRequired,
+AddReminderForm.propTypes = {
+  addNewReminder: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
 };
 
@@ -189,4 +190,4 @@ const mapStateToProps = (state) => ({
   events: state.event.events,
 });
 
-export default connect(mapStateToProps, { addNewEvent })(AddEventForm);
+export default connect(mapStateToProps, { addNewReminder })(AddReminderForm);

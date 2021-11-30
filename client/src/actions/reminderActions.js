@@ -1,5 +1,6 @@
 import axios from 'axios';
 // import { setAlert } from './alertActions';
+import { getDaysTasks } from './scheduleActions';
 import {
   GET_REMINDERS_SUCCESS,
   GET_REMINDERS_FAIL,
@@ -29,8 +30,16 @@ export const getAllReminders = () => async (dispatch) => {
 };
 
 export const addNewReminder =
-  ({ title, description, dateDue, dateCompleted, state }) =>
-  async (dispatch) => {
+  ({
+    title,
+    description,
+    dateDue,
+    dateCompleted,
+    state,
+    lifeSegment,
+    priorityLevel,
+  }) =>
+  async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -42,6 +51,8 @@ export const addNewReminder =
       dateDue,
       dateCompleted,
       state,
+      lifeSegment,
+      priorityLevel,
     });
     try {
       const res = await axios.post('/reminders', body, config);
@@ -49,6 +60,7 @@ export const addNewReminder =
         type: ADD_REMINDER_SUCCESS,
         payload: res.data,
       });
+      dispatch(getDaysTasks(getState().schedule.date));
     } catch (err) {
       console.log(err);
       dispatch({

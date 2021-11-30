@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { Button, Popover, Typography } from '@mui/material';
+import { Backdrop, Button, Popover, Typography } from '@mui/material';
 
 import Reminder from '../Reminder';
 
@@ -28,27 +28,33 @@ const ViewReminders = ({ dueToday }) => {
           <NotificationsActiveIcon />
         )}
       </Button>
-      <Popover
-        id={id}
+      <Backdrop
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Typography sx={{ p: 2 }}>Today's reminders</Typography>
-        {dueToday.length > 0 ? (
-          dueToday.map((rem) => <Reminder reminder={rem} />)
-        ) : (
-          <Typography sx={{ p: 2 }}>No reminders due today!</Typography>
-        )}
-      </Popover>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Typography sx={{ p: 2 }}>Today's reminders</Typography>
+          {dueToday.length > 0 ? (
+            dueToday.map((rem) => <Reminder reminder={rem} />)
+          ) : (
+            <Typography sx={{ p: 2 }}>No reminders due today!</Typography>
+          )}
+        </Popover>
+      </Backdrop>
     </Fragment>
   );
 };

@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Card, CardContent, Grid, Button, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Priority from '../../Priority';
 import LifeSegment from '../../LifeSegment';
 import EditEvent from '../../Events/Edit/EditEvent';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteEvent } from '../../../actions/eventActions';
+import DeleteEvent from '../DeleteEvent';
 
 const EventCard = ({ event }) => {
-  const handleDeleteClick = (event, id) => {
-    deleteEvent(id);
-  };
   return (
     <Card key={event.eventId} sx={{ margin: '0 0 15px' }}>
       <CardContent>
@@ -44,9 +39,7 @@ const EventCard = ({ event }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
-            <Button onClick={(e) => handleDeleteClick(e, event.eventId)}>
-              <DeleteIcon />
-            </Button>
+            <DeleteEvent event={event} />
             <EditEvent event={event} />
           </Grid>
         </Grid>
@@ -56,7 +49,6 @@ const EventCard = ({ event }) => {
 };
 
 EventCard.propTypes = {
-  deleteEvent: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
 };
 

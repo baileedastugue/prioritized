@@ -5,7 +5,7 @@ import EventCard from '../../Events/EventCard';
 
 const DaySchedule = ({ daysEvents }) => {
   return (
-    <Container sx={{ marginBottom: '110px' }}>
+    <Container sx={{ marginBottom: '180px' }}>
       {daysEvents.length > 0 ? (
         daysEvents.map((event) => <EventCard event={event} />)
       ) : (

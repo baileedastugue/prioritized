@@ -37,8 +37,8 @@ const Reminder = db.define('reminder', {
     unique: false,
   },
   state: {
-    type: Sequelize.STRING,
-    defaultValue: 'Not started',
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
     unique: false,
   },
   lifeSegment: {
@@ -48,7 +48,7 @@ const Reminder = db.define('reminder', {
   },
   priorityLevel: {
     type: Sequelize.INTEGER,
-    defaultValue: 0,
+    defaultValue: 1,
     unique: false,
   },
 });

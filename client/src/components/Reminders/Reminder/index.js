@@ -12,13 +12,15 @@ const Reminder = ({ reminder }) => {
   const renderSwitch = (state) => {
     console.log(state);
     switch (state) {
-      case 'Completed':
+      case 3:
         return 'success';
-      case 'In progress':
+      case 2:
         return 'warning';
-      case 'Not started':
-      default:
+      case 1:
         return 'error';
+      case 0:
+      default:
+        return 'primary';
     }
   };
 
@@ -36,7 +38,15 @@ const Reminder = ({ reminder }) => {
         />
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{reminder.description}</Typography>
+        <Typography>
+          Due on {new Date(reminder.dateDue).toLocaleDateString()}
+        </Typography>
+        {reminder.state === 'Completed' && (
+          <Typography>
+            Completed on {new Date(reminder.dateCompleted).toLocaleDateString()}
+          </Typography>
+        )}
+        <Typography>Description: {reminder.description}</Typography>
       </AccordionDetails>
     </Accordion>
   );

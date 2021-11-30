@@ -6,12 +6,12 @@ const AddEventButton = ({ onClick }) => {
   return (
     <Fab
       color='primary'
-      aria-label='add'
+      aria-label='add event'
       onClick={onClick}
       sx={{
         position: 'fixed',
-        right: '30px',
-        bottom: '30px',
+        right: '15px',
+        bottom: '20px',
       }}
     >
       <AddIcon />

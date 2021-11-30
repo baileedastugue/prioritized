@@ -41,7 +41,15 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { title, description, dateDue, dateCompleted, state } = req.body;
+    const {
+      title,
+      description,
+      dateDue,
+      dateCompleted,
+      state,
+      lifeSegment,
+      priorityLevel,
+    } = req.body;
     const userId = req.user.userId;
     const reminderFields = {
       title,
@@ -50,6 +58,8 @@ router.post(
       dateCompleted,
       state,
       userId,
+      lifeSegment,
+      priorityLevel,
     };
     try {
       const newReminder = await Reminder.create(
@@ -75,13 +85,23 @@ router.post(
 // @desc    Update a reminder
 // @access  Private
 router.put('/:reminderId', [auth], async (req, res) => {
-  const { title, description, dateDue, dateCompleted, state } = req.body;
+  const {
+    title,
+    description,
+    dateDue,
+    dateCompleted,
+    state,
+    priorityLevel,
+    lifeSegment,
+  } = req.body;
   const reminderFields = {
     title,
     description,
     dateDue,
     dateCompleted,
     state,
+    priorityLevel,
+    lifeSegment,
   };
   try {
     const newReminder = await Reminder.update(
