@@ -1,10 +1,13 @@
-import React, { useEffect, useState, Fragment, useCallback } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 
-import { getAllReminders } from '../../actions/reminderActions';
+import {
+  getAllReminders,
+  getRemindersState,
+} from '../../actions/reminderActions';
 import { setDate } from '../../actions/scheduleActions';
 import { getDaysTasks } from '../../actions/scheduleActions';
 
@@ -22,20 +25,13 @@ const Dashboard = ({
   daysReminders,
   selectedDate,
   schedLoading,
-  reminders,
+  getRemindersState,
+  inProgressReminders,
 }) => {
-  const [inProgressReminders, setInProgressReminders] = useState([]);
-
-  const inProgressCallback = useCallback(() => {
-    setInProgressReminders(
-      reminders.filter((reminder) => reminder.state === 1)
-    );
-  }, [reminders]);
-
   useEffect(() => {
     getAllReminders();
-    inProgressCallback();
-  }, [getAllReminders, inProgressCallback]);
+    getRemindersState(1);
+  }, [getAllReminders, getRemindersState]);
 
   useEffect(() => {
     if (!schedLoading) {
@@ -71,21 +67,21 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   setDate: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool.isRequired,
   getDaysTasks: PropTypes.func.isRequired,
+  getRemindersState: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool.isRequired,
   daysEvents: PropTypes.array.isRequired,
   daysReminders: PropTypes.array.isRequired,
   selectedDate: PropTypes.object.isRequired,
   schedLoading: PropTypes.bool.isRequired,
-  reminders: PropTypes.array.isRequired,
+  inProgressReminders: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  remindersObj: state.reminder,
-  reminders: state.reminder.reminders,
   isAuth: state.auth.isAuthenticated,
   daysEvents: state.schedule.events,
   daysReminders: state.schedule.reminders,
+  inProgressReminders: state.reminder.remindersState,
   selectedDate: state.schedule.date,
   schedLoading: state.schedule.isLoading,
 });
@@ -94,4 +90,5 @@ export default connect(mapStateToProps, {
   getAllReminders,
   setDate,
   getDaysTasks,
+  getRemindersState,
 })(Dashboard);

@@ -151,22 +151,21 @@ export const deleteReminder = (reminderId) => async (dispatch, getState) => {
   }
 };
 
-export const getRemindersState =
-  ({ state }) =>
-  async (dispatch) => {
-    try {
-      const res = await axios.get(`/reminders/${state}`);
-      dispatch({
-        type: GET_REMINDERS_STATE_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_REMINDERS_STATE_FAIL,
-        payload: err,
-      });
-    }
-  };
+export const getRemindersState = (state) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/reminders/reminderState/${state}`);
+    dispatch({
+      type: GET_REMINDERS_STATE_SUCCESS,
+      payload: res.data,
+    });
+    console.log(res.data);
+  } catch (err) {
+    dispatch({
+      type: GET_REMINDERS_STATE_FAIL,
+      payload: err,
+    });
+  }
+};
 
 export const updateReminderState =
   (reminderId, state) => async (dispatch, getState) => {
@@ -188,8 +187,9 @@ export const updateReminderState =
         type: UPDATE_REMINDER_STATE_SUCCESS,
         payload: res.data,
       });
-      dispatch(getDaysTasks(getState().schedule.date));
+      dispatch(getRemindersState(1));
       dispatch(getAllReminders());
+      dispatch(getDaysTasks(getState().schedule.date));
     } catch (err) {
       console.log(err.response);
       dispatch({

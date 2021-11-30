@@ -167,13 +167,13 @@ router.delete('/:reminderId', auth, async (req, res) => {
   }
 });
 
-// @route   GET reminders/:state
+// @route   GET reminders/state/reminderState
 // @desc    Get all reminders for user
 // @access  Private
-router.get('/:state', auth, async (req, res) => {
+router.get('/reminderState/:reminderState', auth, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const state = req.params.state;
+    const state = req.params.reminderState;
     const reminders = await Reminder.findAll({
       where: {
         userId: userId,
@@ -182,7 +182,7 @@ router.get('/:state', auth, async (req, res) => {
     });
     if (reminders.length === 0) {
       res.status(400).json({
-        msg: `There are no ${state} reminders`,
+        msg: 'There are no reminders for this user',
       });
     } else {
       res.json(reminders);
@@ -201,8 +201,6 @@ router.put('/state/:reminderId/', [auth], async (req, res) => {
   const newState = {
     state,
   };
-  console.log(newState);
-  console.log(req.params.reminderId);
   try {
     const newReminder = await Reminder.update(
       { ...newState },

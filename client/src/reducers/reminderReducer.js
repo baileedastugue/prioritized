@@ -66,6 +66,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: action.payload,
+        remindersState: [],
         isLoading: false,
         validReminder: false,
       };
