@@ -12,6 +12,8 @@ import {
   DELETE_REMINDER_FAIL,
   UPDATE_REMINDER_SUCCESS,
   UPDATE_REMINDER_FAIL,
+  GET_REMINDERS_STATE_SUCCESS,
+  GET_REMINDERS_STATE_FAIL,
 } from './types';
 
 export const getAllReminders = () => async (dispatch) => {
@@ -131,6 +133,23 @@ export const deleteReminder =
       console.log(err);
       dispatch({
         type: DELETE_REMINDER_FAIL,
+        payload: err,
+      });
+    }
+  };
+
+export const getRemindersState =
+  ({ state }) =>
+  async (dispatch) => {
+    try {
+      const res = await axios.get(`/reminders/${state}`);
+      dispatch({
+        type: GET_REMINDERS_STATE_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_REMINDERS_STATE_FAIL,
         payload: err,
       });
     }

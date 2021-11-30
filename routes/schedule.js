@@ -47,7 +47,8 @@ router.get('/:startDate/:endDate', auth, async (req, res) => {
       ],
       order: [
         [{ model: Event, as: 'userEvent' }, 'timeStart', 'ASC'],
-        [{ model: Reminder, as: 'userReminder' }, 'dateDue', 'ASC'],
+        [{ model: Reminder, as: 'userReminder' }, 'priorityLevel', 'DESC'],
+        [{ model: Reminder, as: 'userReminder' }, 'state', 'ASC'],
       ],
     });
     if (

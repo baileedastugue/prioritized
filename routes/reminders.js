@@ -142,8 +142,8 @@ router.get('/:reminderId', auth, async (req, res) => {
   }
 });
 
-// @route   GET reminders/:reminderId
-// @desc    Get a single reminder
+// @route   DELETE reminders/:reminderId
+// @desc    Delete a single reminder
 // @access  Private
 router.delete('/:reminderId', auth, async (req, res) => {
   try {
@@ -160,6 +160,32 @@ router.delete('/:reminderId', auth, async (req, res) => {
       });
     }
     res.json(reminder);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   GET reminders/:state
+// @desc    Get all reminders for user
+// @access  Private
+router.get('/:state', auth, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const state = req.params.state;
+    const reminders = await Reminder.findAll({
+      where: {
+        userId: userId,
+        state: state,
+      },
+    });
+    if (reminders.length === 0) {
+      res.status(400).json({
+        msg: `There are no ${state} reminders`,
+      });
+    } else {
+      res.json(reminders);
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

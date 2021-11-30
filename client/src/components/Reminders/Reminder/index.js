@@ -10,17 +10,16 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 const Reminder = ({ reminder }) => {
   const renderSwitch = (state) => {
-    console.log(state);
     switch (state) {
-      case 3:
-        return 'success';
-      case 2:
-        return 'warning';
-      case 1:
-        return 'error';
       case 0:
+        return 'error';
+      case 1:
+        return 'warning';
+      case 2:
+        return 'success';
+      case 3:
       default:
-        return 'primary';
+        return 'disabled';
     }
   };
 

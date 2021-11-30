@@ -48,7 +48,7 @@ const Reminder = db.define('reminder', {
   },
   priorityLevel: {
     type: Sequelize.INTEGER,
-    defaultValue: 1,
+    defaultValue: 0,
     unique: false,
   },
 });

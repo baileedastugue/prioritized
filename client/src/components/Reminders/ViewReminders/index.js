@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { Backdrop, Button, Popover, Typography } from '@mui/material';
+import { Backdrop, Button, Divider, Popover, Typography } from '@mui/material';
 
 import Reminder from '../Reminder';
 
-const ViewReminders = ({ dueToday }) => {
+const ViewReminders = ({ dueToday, inProgress }) => {
+  console.log(inProgress);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -21,7 +22,18 @@ const ViewReminders = ({ dueToday }) => {
 
   return (
     <Fragment>
-      <Button aria-describedby={id} onClick={handleClick}>
+      <Button
+        aria-describedby={id}
+        onClick={handleClick}
+        sx={{
+          display: 'inline-block',
+          position: 'absolute',
+          right: 0,
+          top: '50%',
+          lineHeight: 1,
+          transform: 'translateY(-50%)',
+        }}
+      >
         {dueToday.length === 0 ? (
           <NotificationsIcon />
         ) : (
@@ -47,11 +59,18 @@ const ViewReminders = ({ dueToday }) => {
             horizontal: 'center',
           }}
         >
-          <Typography sx={{ p: 2 }}>Today's reminders</Typography>
+          <Typography sx={{ p: 2 }}>Today's reminders:</Typography>
           {dueToday.length > 0 ? (
             dueToday.map((rem) => <Reminder reminder={rem} />)
           ) : (
             <Typography sx={{ p: 2 }}>No reminders due today!</Typography>
+          )}
+          <Divider />
+          <Typography sx={{ p: 2 }}>All reminders in progress:</Typography>
+          {inProgress.length > 0 ? (
+            inProgress.map((rem) => <Reminder reminder={rem} />)
+          ) : (
+            <Typography sx={{ p: 2 }}>No reminders in progress</Typography>
           )}
         </Popover>
       </Backdrop>

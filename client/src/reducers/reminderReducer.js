@@ -9,12 +9,15 @@ import {
   DELETE_REMINDER_FAIL,
   UPDATE_REMINDER_SUCCESS,
   UPDATE_REMINDER_FAIL,
+  GET_REMINDERS_STATE_SUCCESS,
+  GET_REMINDERS_STATE_FAIL,
 } from '../actions/types';
 
 const initialState = {
   isLoading: true,
   reminders: [],
   reminder: [],
+  remindersState: [],
   validReminder: null,
   error: {},
 };
@@ -38,11 +41,19 @@ export default function (state = initialState, action) {
         validReminder: true,
         isLoading: false,
       };
+    case GET_REMINDERS_STATE_SUCCESS:
+      return {
+        ...state,
+        remindersState: action.payload,
+        validReminder: true,
+        isLoading: false,
+      };
     case DELETE_REMINDER_SUCCESS:
       return {
         ...state,
         isLoading: false,
       };
+    case GET_REMINDERS_STATE_FAIL:
     case UPDATE_REMINDER_FAIL:
     case DELETE_REMINDER_FAIL:
     case ADD_REMINDER_FAIL:

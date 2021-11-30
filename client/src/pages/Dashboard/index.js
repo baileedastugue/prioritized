@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
@@ -22,9 +22,16 @@ const Dashboard = ({
   daysReminders,
   selectedDate,
   schedLoading,
+  reminders,
 }) => {
+  const [inProgressReminders, setInProgressReminders] = useState([]);
+
   useEffect(() => {
     getAllReminders();
+    setInProgressReminders(
+      reminders.filter((reminder) => reminder.state === 2)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAllReminders]);
 
   useEffect(() => {
@@ -42,10 +49,14 @@ const Dashboard = ({
         direction='row'
         alignItems='center'
         justifyContent='center'
+        sx={{ position: 'relative' }}
       >
         <Grid item>
           <DateSelector />
-          <ViewReminders dueToday={daysReminders} />
+          <ViewReminders
+            dueToday={daysReminders}
+            inProgress={inProgressReminders}
+          />
         </Grid>
       </Grid>
       <DaySchedule daysEvents={daysEvents} />
@@ -63,6 +74,7 @@ Dashboard.propTypes = {
   daysReminders: PropTypes.array.isRequired,
   selectedDate: PropTypes.object.isRequired,
   schedLoading: PropTypes.bool.isRequired,
+  reminders: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
