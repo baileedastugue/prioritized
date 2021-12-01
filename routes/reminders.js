@@ -198,8 +198,10 @@ router.get('/reminderState/:reminderState', auth, async (req, res) => {
 // @access  Private
 router.put('/state/:reminderId/', [auth], async (req, res) => {
   const { state } = req.body;
+  const dateCompleted = state === 2 ? new Date() : null;
   const newState = {
     state,
+    dateCompleted,
   };
   try {
     const newReminder = await Reminder.update(

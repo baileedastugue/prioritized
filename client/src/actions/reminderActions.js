@@ -59,6 +59,7 @@ export const addNewReminder =
     });
     try {
       const res = await axios.post('/reminders', body, config);
+      console.log(res.data);
       dispatch({
         type: ADD_REMINDER_SUCCESS,
         payload: res.data,
@@ -108,7 +109,6 @@ export const updateReminder =
         'Content-Type': 'application/json',
       },
     };
-    console.log(reminderId);
     const body = JSON.stringify({
       title,
       description,

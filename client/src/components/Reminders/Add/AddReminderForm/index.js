@@ -25,10 +25,10 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    lifeSegment: '',
-    priorityLevel: 'No priority',
+    lifeSegment: 'Unassigned',
+    priorityLevel: 0,
     dateDue: new Date(),
-    state: 'Not started',
+    state: 1,
   });
 
   const { title, description, dateDue, state, lifeSegment, priorityLevel } =
@@ -45,13 +45,14 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
         state,
         priorityLevel,
       });
+      console.log(formData);
       await setFormData({
         title: '',
         description: '',
         lifeSegment: '',
-        priorityLevel: 'No priority',
+        priorityLevel: 0,
         dateDue: new Date().toUTCString(),
-        state: 'Not started',
+        state: 1,
       });
       handleClose();
     } catch (err) {
@@ -168,6 +169,7 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
                   <MenuItem value={'Work'}>Work</MenuItem>
                   <MenuItem value={'School'}>School</MenuItem>
                   <MenuItem value={'Family'}>Family</MenuItem>
+                  <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

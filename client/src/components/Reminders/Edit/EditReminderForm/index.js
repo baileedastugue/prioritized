@@ -176,7 +176,8 @@ const EditReminder = ({ reminder, updateReminder, open, handleClose }) => {
                   <MenuItem value={'Personal'}>Personal</MenuItem>
                   <MenuItem value={'Work'}>Work</MenuItem>
                   <MenuItem value={'School'}>School</MenuItem>
-                  <MenuItem value={'Damily'}>Family</MenuItem>
+                  <MenuItem value={'Family'}>Family</MenuItem>
+                  <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

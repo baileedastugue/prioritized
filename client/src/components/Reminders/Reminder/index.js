@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -9,7 +9,6 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteReminder from '../DeleteReminder';
 import UpdateState from '../UpdateState';
 import EditReminder from '../Edit/EditReminder';
-import getMonth from '../../../utils/getMonth';
 
 const Reminder = ({ reminder }) => {
   const [accordianExpanded, setAccordianExpanded] = useState(false);
@@ -30,15 +29,23 @@ const Reminder = ({ reminder }) => {
         )}
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>Due on {reminder.dateDue}</Typography>
-        {reminder.state === 'Completed' && (
-          <Typography>
-            Completed on {new Date(reminder.dateCompleted)}
-          </Typography>
-        )}
+        <Typography>
+          Due on {new Date(reminder.dateDue).toLocaleDateString()}
+        </Typography>
+        <Typography>
+          {reminder.state === 2 ? (
+            <Fragment>
+              Completed on{' '}
+              {new Date(reminder.dateCompleted).toLocaleDateString()}
+            </Fragment>
+          ) : (
+            <Fragment>Task not yet completed</Fragment>
+          )}
+        </Typography>
         {reminder.description && (
           <Typography>Description: {reminder.description}</Typography>
         )}
+
         <EditReminder reminder={reminder} />
         <DeleteReminder reminderId={reminder.reminderId} />
         <UpdateState reminder={reminder} clickable={true} />
