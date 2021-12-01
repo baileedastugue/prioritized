@@ -15,7 +15,7 @@ const EventCard = ({ event }) => {
             <Typography variant='h5' component='div'>
               {event.title}
             </Typography>
-            <Priority priorityLevel={event.priorityLevel} />
+            <Priority priorityLevel={event.priorityLevel} absolute={true} />
           </Grid>
           <Grid
             item

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Priority = ({ priorityLevel }) => {
+const Priority = ({ priorityLevel, absolute }) => {
   const classes = useStyles();
 
   const renderSwitch = (priorityLevel) => {
@@ -30,7 +30,11 @@ const Priority = ({ priorityLevel }) => {
     }
   };
 
-  return <span className={classes.root}>{renderSwitch(priorityLevel)}</span>;
+  return (
+    <span className={absolute && classes.root}>
+      {renderSwitch(priorityLevel)}
+    </span>
+  );
 };
 
 export default Priority;
