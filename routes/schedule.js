@@ -74,7 +74,6 @@ router.get('/:year/:month/', auth, async (req, res) => {
   const { year, month } = req.params;
   const firstDay = new Date(`${year} ${parseInt(month)} 1`);
   const lastDay = new Date(year, parseInt(month), 0);
-  console.log(firstDay, lastDay);
   try {
     const userId = req.user.userId;
     const allPriorities = await User.findAll({

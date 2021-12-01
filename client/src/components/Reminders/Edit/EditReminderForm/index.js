@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 import {
   Grid,
@@ -18,40 +17,48 @@ import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
-import { addNewReminder } from '../../../../actions/reminderActions';
 import SubmitButton from '../../../layout/buttons/SubmitButton';
 
-const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
+import {
+  updateReminder,
+  viewReminder,
+} from '../../../../actions/reminderActions';
+
+const EditReminder = ({ reminder, updateReminder, open, handleClose }) => {
+  const reminderId = reminder.reminderId;
+
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    lifeSegment: '',
-    priorityLevel: 'No priority',
-    dateDue: new Date(),
-    state: 'Not started',
+    title: reminder.title,
+    description: reminder.description,
+    lifeSegment: reminder.lifeSegment,
+    priorityLevel: reminder.priorityLevel,
+    dateDue: reminder.dateDue,
+    dateCompleted: reminder.dateCompleted,
+    state: reminder.state,
   });
 
-  const { title, description, dateDue, state, lifeSegment, priorityLevel } =
-    formData;
+  const {
+    title,
+    description,
+    dateDue,
+    dateCompleted,
+    state,
+    lifeSegment,
+    priorityLevel,
+  } = formData;
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (reminder) => {
+    reminder.preventDefault();
     try {
-      await addNewReminder({
+      await updateReminder({
+        reminderId,
         title,
         description,
         dateDue,
-        lifeSegment,
+        dateCompleted,
         state,
+        lifeSegment,
         priorityLevel,
-      });
-      await setFormData({
-        title: '',
-        description: '',
-        lifeSegment: '',
-        priorityLevel: 'No priority',
-        dateDue: new Date().toUTCString(),
-        state: 'Not started',
       });
       handleClose();
     } catch (err) {
@@ -59,19 +66,26 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
     }
   };
 
-  const handleChange = (event) => {
-    if (event.target.name) {
-      setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleChange = (reminder) => {
+    if (reminder.target.name) {
+      setFormData({
+        ...formData,
+        [reminder.target.name]: reminder.target.value,
+      });
     }
   };
 
   const handleDateDueChange = (newValue) => {
-    setFormData({ ...formData, timeStart: newValue });
+    setFormData({ ...formData, dateDue: newValue });
+  };
+
+  const handleDateCompletedChange = (newValue) => {
+    setFormData({ ...formData, dateCompleted: newValue });
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add New Reminder</DialogTitle>
+      <DialogTitle>Edit {reminder.title} Reminder</DialogTitle>
       <DialogContent>
         <form onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
@@ -107,29 +121,24 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
                 <DatePicker
                   fullWidth
                   label='Date Due'
-                  value={dateDue}
-                  name='timeStart'
+                  value={new Date(dateDue)}
+                  name='dateDue'
                   onChange={handleDateDueChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id='selectStateLabel'>State</InputLabel>
-                <Select
-                  labelId='selectStateLabel'
-                  id='selectState'
-                  value={state}
-                  name='state'
-                  label='Current State'
-                  onChange={(e) => handleChange(e)}
-                >
-                  <MenuItem value={1}>Not started</MenuItem>
-                  <MenuItem value={2}>In progress</MenuItem>
-                  <MenuItem value={3}>Complete</MenuItem>
-                </Select>
-              </FormControl>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  fullWidth
+                  label='Date Completed'
+                  value={dateCompleted}
+                  name='dateCompleted'
+                  onChange={handleDateCompletedChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
@@ -167,12 +176,12 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
                   <MenuItem value={'Personal'}>Personal</MenuItem>
                   <MenuItem value={'Work'}>Work</MenuItem>
                   <MenuItem value={'School'}>School</MenuItem>
-                  <MenuItem value={'Family'}>Family</MenuItem>
+                  <MenuItem value={'Damily'}>Family</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <DialogActions>
-              <SubmitButton>Create reminder</SubmitButton>
+              <SubmitButton>Update reminder</SubmitButton>
             </DialogActions>
           </Grid>
         </form>
@@ -181,13 +190,16 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
   );
 };
 
-AddReminderForm.propTypes = {
-  addNewReminder: PropTypes.func.isRequired,
-  events: PropTypes.array.isRequired,
+EditReminder.propTypes = {
+  updateReminder: PropTypes.func.isRequired,
+  viewReminder: PropTypes.func.isRequired,
+  reminders: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  events: state.event.events,
+  reminders: state.reminder.reminders,
 });
 
-export default connect(mapStateToProps, { addNewReminder })(AddReminderForm);
+export default connect(mapStateToProps, { viewReminder, updateReminder })(
+  EditReminder
+);

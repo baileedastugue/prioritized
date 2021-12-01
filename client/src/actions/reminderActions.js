@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { setAlert } from './alertActions';
 import { getDaysTasks } from './scheduleActions';
 import {
   GET_REMINDERS_SUCCESS,
@@ -103,12 +102,13 @@ export const updateReminder =
     lifeSegment,
     priorityLevel,
   }) =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
+    console.log(reminderId);
     const body = JSON.stringify({
       title,
       description,
@@ -124,6 +124,9 @@ export const updateReminder =
         type: UPDATE_REMINDER_SUCCESS,
         payload: res.data,
       });
+      dispatch(getDaysTasks(getState().schedule.date));
+      dispatch(getAllReminders());
+      dispatch(getRemindersState(1));
     } catch (err) {
       console.log(err);
       dispatch({
@@ -158,7 +161,6 @@ export const getRemindersState = (state) => async (dispatch) => {
       type: GET_REMINDERS_STATE_SUCCESS,
       payload: res.data,
     });
-    console.log(res.data);
   } catch (err) {
     dispatch({
       type: GET_REMINDERS_STATE_FAIL,

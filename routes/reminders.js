@@ -105,7 +105,7 @@ router.put('/:reminderId', [auth], async (req, res) => {
     lifeSegment,
   };
   try {
-    const newReminder = await Reminder.update(
+    const reminderUpdate = await Reminder.update(
       { ...reminderFields },
       {
         where: {
@@ -113,7 +113,7 @@ router.put('/:reminderId', [auth], async (req, res) => {
         },
       }
     );
-    res.json(newReminder);
+    res.json(reminderUpdate);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
