@@ -10,7 +10,7 @@ const DeleteEvent = ({ event, deleteEvent }) => {
     deleteEvent(id);
   };
   return (
-    <Button onClick={(e) => handleDeleteClick(e, event.eventId)}>
+    <Button color='grey' onClick={(e) => handleDeleteClick(e, event.eventId)}>
       <DeleteIcon />
     </Button>
   );

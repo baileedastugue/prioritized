@@ -23,6 +23,7 @@ const ViewReminders = ({ dueToday, inProgress }) => {
     <Fragment>
       <Button
         aria-describedby={id}
+        color='secondary'
         onClick={handleClick}
         sx={{
           display: 'inline-block',
@@ -58,14 +59,18 @@ const ViewReminders = ({ dueToday, inProgress }) => {
             horizontal: 'center',
           }}
         >
-          <Typography sx={{ p: 2 }}>Today's reminders:</Typography>
+          <Typography variant='h5' component='p' sx={{ p: 2 }}>
+            Today's reminders:
+          </Typography>
           {dueToday.length > 0 ? (
             dueToday.map((rem) => <Reminder reminder={rem} />)
           ) : (
             <Typography sx={{ p: 2 }}>No reminders due today!</Typography>
           )}
           <Divider />
-          <Typography sx={{ p: 2 }}>All reminders in progress:</Typography>
+          <Typography variant='h5' component='p' sx={{ p: 2 }}>
+            All reminders in progress:
+          </Typography>
           {inProgress.length > 0 ? (
             inProgress.map((rem) => <Reminder reminder={rem} />)
           ) : (

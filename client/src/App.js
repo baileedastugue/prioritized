@@ -6,18 +6,20 @@ import PrivateRoute from './components/authentication/PrivateRoute';
 import { Provider } from 'react-redux';
 import Store from './store';
 import setAuthToken from './utils/setAuthToken';
-
 import { loadUser } from './actions/authActions';
-
 import Auth from './pages/Auth';
 import Welcome from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
-// import Footer from './components/layout/Footer';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import outerTheme from './components/layout/ThemeProvider/index.js';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+
+console.log(outerTheme);
 
 const App = () => {
   useEffect(() => {
@@ -25,22 +27,26 @@ const App = () => {
   });
   return (
     <Provider store={Store}>
-      <NavBar />
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/' element={<Welcome />} />
-          <Route exact path='/userAuth' element={<Auth />} />
-          <Route
-            path='/dashboard'
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-      {/* <Footer /> */}
+      <CssBaseline>
+        <ThemeProvider theme={outerTheme}>
+          <NavBar />
+          <BrowserRouter>
+            <Routes>
+              <Route exact path='/' element={<Welcome />} />
+              <Route exact path='/userAuth' element={<Auth />} />
+              <Route
+                path='/dashboard'
+                element={
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+          {/* <Footer /> */}
+        </ThemeProvider>
+      </CssBaseline>
     </Provider>
   );
 };

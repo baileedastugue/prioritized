@@ -142,6 +142,24 @@ const EditReminder = ({ reminder, updateReminder, open, handleClose }) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
+                <InputLabel id='selectStateLabel'>State</InputLabel>
+                <Select
+                  labelId='selectStateLabel'
+                  id='selectState'
+                  value={state}
+                  name='state'
+                  label='Current State'
+                  onChange={(e) => handleChange(e)}
+                >
+                  <MenuItem value={0}>Backlog</MenuItem>
+                  <MenuItem value={1}>Not started</MenuItem>
+                  <MenuItem value={2}>In progress</MenuItem>
+                  <MenuItem value={3}>Complete</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
                 <InputLabel id='selectPriorityLevelLabel'>
                   Priority Level
                 </InputLabel>
@@ -181,6 +199,7 @@ const EditReminder = ({ reminder, updateReminder, open, handleClose }) => {
                 </Select>
               </FormControl>
             </Grid>
+
             <DialogActions>
               <SubmitButton>Update reminder</SubmitButton>
             </DialogActions>

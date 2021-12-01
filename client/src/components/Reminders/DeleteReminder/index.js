@@ -10,7 +10,7 @@ const DeleteReminder = ({ reminderId, deleteReminder }) => {
     deleteReminder(id);
   };
   return (
-    <Button onClick={(e) => handleDeleteClick(e, reminderId)}>
+    <Button color='grey' onClick={(e) => handleDeleteClick(e, reminderId)}>
       <DeleteIcon />
     </Button>
   );

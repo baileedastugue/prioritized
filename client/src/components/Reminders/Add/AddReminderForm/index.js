@@ -126,6 +126,7 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
                   label='Current State'
                   onChange={(e) => handleChange(e)}
                 >
+                  <MenuItem value={0}>Backlog</MenuItem>
                   <MenuItem value={1}>Not started</MenuItem>
                   <MenuItem value={2}>In progress</MenuItem>
                   <MenuItem value={3}>Complete</MenuItem>

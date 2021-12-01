@@ -29,10 +29,10 @@ const Reminder = ({ reminder }) => {
         )}
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
+        <Typography variant='body1' component='p'>
           Due on {new Date(reminder.dateDue).toLocaleDateString()}
         </Typography>
-        <Typography>
+        <Typography variant='body1' component='p'>
           {reminder.state === 2 ? (
             <Fragment>
               Completed on{' '}
@@ -43,7 +43,9 @@ const Reminder = ({ reminder }) => {
           )}
         </Typography>
         {reminder.description && (
-          <Typography>Description: {reminder.description}</Typography>
+          <Typography variant='body1' component='p'>
+            Description: {reminder.description}
+          </Typography>
         )}
 
         <EditReminder reminder={reminder} />

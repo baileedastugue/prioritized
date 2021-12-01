@@ -95,7 +95,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
               <FormControl fullWidth>
                 <TextField
                   multiline
-                  maxRows={4}
+                  maxRows={2}
                   id='description'
                   name='description'
                   value={description}
@@ -110,6 +110,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   fullWidth
+                  required
                   label='Start time'
                   value={timeStart}
                   name='timeStart'
@@ -122,6 +123,7 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   fullWidth
+                  required
                   label='End time'
                   value={timeEnd}
                   name='timeEnd'
@@ -167,12 +169,22 @@ const AddEventForm = ({ addNewEvent, open, handleClose }) => {
                   <MenuItem value={'Work'}>Work</MenuItem>
                   <MenuItem value={'School'}>School</MenuItem>
                   <MenuItem value={'Family'}>Family</MenuItem>
+                  <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <DialogActions>
-              <SubmitButton>Create event</SubmitButton>
-            </DialogActions>
+            <Grid
+              container
+              direction='row'
+              justifyContent='flex-end'
+              alignItems='center'
+            >
+              <Grid item>
+                <DialogActions>
+                  <SubmitButton>Create event</SubmitButton>
+                </DialogActions>
+              </Grid>
+            </Grid>
           </Grid>
         </form>
       </DialogContent>

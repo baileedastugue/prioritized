@@ -91,7 +91,7 @@ const EditEvent = ({ event, updateEvent, open, handleClose }) => {
               <FormControl fullWidth>
                 <TextField
                   multiline
-                  maxRows={4}
+                  maxRows={2}
                   id='description'
                   name='description'
                   value={description}
@@ -159,16 +159,26 @@ const EditEvent = ({ event, updateEvent, open, handleClose }) => {
                   label='Life Segment'
                   onChange={(e) => handleChange(e)}
                 >
-                  <MenuItem value={'personal'}>Personal</MenuItem>
-                  <MenuItem value={'work'}>Work</MenuItem>
-                  <MenuItem value={'school'}>School</MenuItem>
-                  <MenuItem value={'family'}>Family</MenuItem>
+                  <MenuItem value={'Personal'}>Personal</MenuItem>
+                  <MenuItem value={'Work'}>Work</MenuItem>
+                  <MenuItem value={'School'}>School</MenuItem>
+                  <MenuItem value={'Family'}>Family</MenuItem>
+                  <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <DialogActions>
-              <SubmitButton>Update event</SubmitButton>
-            </DialogActions>
+            <Grid
+              container
+              direction='row'
+              justifyContent='flex-end'
+              alignItems='center'
+            >
+              <Grid item>
+                <DialogActions>
+                  <SubmitButton>Update event</SubmitButton>
+                </DialogActions>
+              </Grid>
+            </Grid>
           </Grid>
         </form>
       </DialogContent>

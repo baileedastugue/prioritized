@@ -2,21 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { AppBar, Toolbar, Typography } from '@mui/material';
-
 import LogOut from '../../authentication/LogOut';
 
 const NavBar = (props) => {
   return (
-    <AppBar position='static'>
+    <AppBar position='static' color='primary'>
       <Toolbar>
-        <Typography variant='h4' component='div'>
+        <Typography variant='h4' component='div' sx={{ flexGrow: 1 }}>
           Prioritized
         </Typography>
-        {props.isAuth && (
-          <div>
-            <LogOut />
-          </div>
-        )}
+        {props.isAuth && <LogOut />}
       </Toolbar>
     </AppBar>
   );

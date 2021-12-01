@@ -18,15 +18,15 @@ const LifeSegment = ({ lifeSegment }) => {
 
   const renderSwitch = (lifeSegment) => {
     switch (lifeSegment) {
-      case 'family':
+      case 'Family':
         return <FamilyRestroomIcon />;
-      case 'work':
+      case 'Work':
         return <WorkIcon />;
-      case 'personal':
+      case 'Personal':
         return <EmojiPeopleIcon />;
-      case 'school':
+      case 'School':
         return <SchoolIcon />;
-      case 'unassigned':
+      case 'Unassigned':
       default:
         return;
     }
