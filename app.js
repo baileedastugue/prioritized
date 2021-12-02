@@ -1,15 +1,18 @@
 require('dotenv').config();
 
-import express, { urlencoded, json, static } from 'express';
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const db = require('./config/database');
 
 let app = express();
 
 let PORT = process.env.PORT || 5000;
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
-  app.use(static('client/build'));
+  app.use(express.static('client/build'));
 }
 
 app.use('/reminders', require('./routes/reminders'));
