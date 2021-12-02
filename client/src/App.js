@@ -19,8 +19,6 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-console.log(outerTheme);
-
 const App = () => {
   useEffect(() => {
     Store.dispatch(loadUser());
@@ -44,7 +42,6 @@ const App = () => {
               />
             </Routes>
           </BrowserRouter>
-          {/* <Footer /> */}
         </ThemeProvider>
       </CssBaseline>
     </Provider>
