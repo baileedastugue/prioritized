@@ -37,7 +37,7 @@ export const getDaysTasks = (date) => async (dispatch) => {
   } catch (err) {
     const error = err.response;
     if (error) {
-      dispatch(setAlert(error, 'error'));
+      dispatch(setAlert(error.msg, 'error'));
     }
     dispatch({
       type: VIEW_DAY_SCHEDULE_FAIL,
