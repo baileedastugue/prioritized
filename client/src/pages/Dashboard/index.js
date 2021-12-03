@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
+import AlertDiv from '../../components/AlertDiv';
 
 import {
   getAllReminders,
@@ -61,6 +62,7 @@ const Dashboard = ({
       <DaySchedule daysEvents={daysEvents} />
       <AddEvent />
       <AddReminder />
+      <AlertDiv />
     </Fragment>
   );
 };

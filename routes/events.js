@@ -43,9 +43,9 @@ router.post(
     auth,
     [
       check('title', 'An event title is required').not().isEmpty(),
-      check('timeStart', 'Event start time must be before event end time')
-        .exists()
-        .custom((value, { req }) => value < req.body.timeEnd),
+      // check('timeStart', 'Event start time must be before event end time')
+      //   .exists()
+      //   .custom((value, { req }) => value < req.body.timeEnd),
     ],
   ],
   async (req, res) => {
@@ -71,6 +71,7 @@ router.post(
       lifeSegment,
       priorityLevel,
     };
+    console.log(eventFields);
     try {
       const newEvent = await Event.create(
         { ...eventFields },

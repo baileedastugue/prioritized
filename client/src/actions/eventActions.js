@@ -36,6 +36,7 @@ export const addNewEvent = (eventInfo) => async (dispatch, getState) => {
       'Content-Type': 'application/json',
     },
   };
+  console.log(eventInfo);
   const body = JSON.stringify(eventInfo);
   try {
     const res = await axios.post('/events', body, config);
@@ -44,6 +45,7 @@ export const addNewEvent = (eventInfo) => async (dispatch, getState) => {
       payload: res.data,
     });
     dispatch(getDaysTasks(getState().schedule.date));
+    dispatch(setAlert('Event added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -104,6 +106,7 @@ export const updateEvent =
         type: UPDATE_EVENT_SUCCESS,
         payload: res.data,
       });
+      dispatch(setAlert(`${title} updated!`, 'success'));
       dispatch(getDaysTasks(getState().schedule.date));
     } catch (err) {
       console.log(err.response);
@@ -121,6 +124,7 @@ export const deleteEvent = (eventId) => async (dispatch, getState) => {
       type: DELETE_EVENT_SUCCESS,
       payload: res.data,
     });
+    dispatch(setAlert(`Event deleted`, 'success'));
     dispatch(getDaysTasks(getState().schedule.date));
   } catch (err) {
     console.log(err.response);

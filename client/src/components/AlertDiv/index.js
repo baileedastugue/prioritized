@@ -24,7 +24,7 @@ const AlertDiv = ({ alerts, removeAlert }) => {
       <Snackbar
         key={alert.id}
         open={alertOpen}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <Alert
           onClose={(e) => handleClose(e, alert)}

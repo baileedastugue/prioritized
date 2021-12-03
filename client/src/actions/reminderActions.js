@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { setAlert } from './alertActions';
+
 import { getDaysTasks } from './scheduleActions';
 import {
   GET_REMINDERS_SUCCESS,
@@ -64,7 +66,10 @@ export const addNewReminder =
         type: ADD_REMINDER_SUCCESS,
         payload: res.data,
       });
+      dispatch(setAlert('New reminder added', 'success'));
       dispatch(getDaysTasks(getState().schedule.date));
+      dispatch(getAllReminders());
+      dispatch(getRemindersState(1));
     } catch (err) {
       console.log(err);
       dispatch({
@@ -124,11 +129,15 @@ export const updateReminder =
         type: UPDATE_REMINDER_SUCCESS,
         payload: res.data,
       });
+      dispatch(setAlert(`${title} updated!`, 'success'));
       dispatch(getDaysTasks(getState().schedule.date));
       dispatch(getAllReminders());
       dispatch(getRemindersState(1));
     } catch (err) {
-      console.log(err);
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      }
       dispatch({
         type: UPDATE_REMINDER_FAIL,
         payload: err,
@@ -143,6 +152,7 @@ export const deleteReminder = (reminderId) => async (dispatch, getState) => {
       type: DELETE_REMINDER_SUCCESS,
       payload: res.data,
     });
+    dispatch(setAlert(`Reminder deleted`, 'success'));
     dispatch(getDaysTasks(getState().schedule.date));
     dispatch(getAllReminders());
   } catch (err) {
@@ -189,6 +199,7 @@ export const updateReminderState =
         type: UPDATE_REMINDER_STATE_SUCCESS,
         payload: res.data,
       });
+      dispatch(setAlert(`Reminder state updated!`, 'success'));
       dispatch(getRemindersState(1));
       dispatch(getAllReminders());
       dispatch(getDaysTasks(getState().schedule.date));
