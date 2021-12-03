@@ -49,7 +49,7 @@ const EventCard = ({ event }) => {
             <LifeSegment lifeSegment={event.lifeSegment} />
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
+        <Grid item xs={12} sx={{ textAlign: 'right' }}>
           <EditEvent event={event} />
           <DeleteEvent event={event} />
         </Grid>
