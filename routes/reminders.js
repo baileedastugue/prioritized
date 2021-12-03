@@ -74,6 +74,7 @@ router.post(
           ],
         }
       );
+      console.log(newReminder);
       res.json(newReminder);
     } catch (err) {
       console.error(err.message);

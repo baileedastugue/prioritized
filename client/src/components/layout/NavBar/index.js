@@ -6,7 +6,7 @@ import LogOut from '../../authentication/LogOut';
 
 const NavBar = (props) => {
   return (
-    <AppBar position='static' color='primary'>
+    <AppBar position='static' color='secondary'>
       <Toolbar>
         <Typography variant='h4' component='div' sx={{ flexGrow: 1 }}>
           Prioritized

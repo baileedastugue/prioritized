@@ -5,8 +5,8 @@ import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 const AddReminderButton = ({ onClick }) => {
   return (
     <Fab
-      color='secondary'
-      aria-label='add reminder'
+      color='primary'
+      aria-label='Add reminder'
       onClick={onClick}
       sx={{
         position: 'fixed',

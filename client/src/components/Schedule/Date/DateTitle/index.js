@@ -25,12 +25,12 @@ const DateTitle = ({ date, onClick }) => {
   return (
     <Button className={classes.button}>
       <Typography
-        variant='h4'
+        variant='h5'
         onClick={onClick}
         component='h2'
         className={classes.date}
         my={2}
-        // sx={{ display: 'inline-block' }}
+        sx={{ display: 'block' }}
       >
         {getMonth(newDate.getMonth())} {newDate.getDate()},{' '}
         {newDate.getFullYear()}

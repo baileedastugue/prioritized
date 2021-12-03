@@ -2,11 +2,11 @@ import { createTheme } from '@mui/material/styles';
 
 const outerTheme = createTheme({
   palette: {
-    secondary: {
-      main: '#ffab91',
-    },
     primary: {
       main: '#00acc1',
+    },
+    secondary: {
+      main: '#ffab91',
     },
     error: {
       main: '#d32f2f',
@@ -53,7 +53,6 @@ const outerTheme = createTheme({
     },
     body1: {
       fontFamily: 'Lato, sans-serif',
-      fontSize: '1.1rem',
     },
     body2: {
       fontFamily: 'Lato, sans-serif',

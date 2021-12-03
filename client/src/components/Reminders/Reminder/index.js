@@ -55,16 +55,14 @@ const Reminder = ({ reminder }) => {
             )}
           </Grid>
           <Grid item xs={1} sx={{ position: 'relative' }}>
-            <Priority priority={reminder.priority} />
-            <br />
             <LifeSegment lifeSegment={reminder.lifeSegment} />
           </Grid>
         </Grid>
-
-        <EditReminder reminder={reminder} />
-        <DeleteReminder reminderId={reminder.reminderId} />
-
-        <UpdateState reminder={reminder} clickable={true} />
+        <Grid item xs={12} sx={{ textAlign: 'right' }}>
+          <UpdateState reminder={reminder} clickable={true} />
+          <EditReminder reminder={reminder} />
+          <DeleteReminder reminderId={reminder.reminderId} />
+        </Grid>
       </AccordionDetails>
     </Accordion>
   );

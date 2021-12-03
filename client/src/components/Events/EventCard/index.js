@@ -1,50 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Grid,
+  Typography,
+} from '@mui/material';
 import Priority from '../../Priority';
 import LifeSegment from '../../LifeSegment';
 import EditEvent from '../../Events/Edit/EditEvent';
 import DeleteEvent from '../DeleteEvent';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const EventCard = ({ event }) => {
   return (
-    <Card key={event.eventId} sx={{ margin: '0 0 15px' }}>
-      <CardContent>
+    <Accordion key={event.eventId}>
+      <AccordionSummary
+        expandIcon={<MoreHorizIcon />}
+        aria-controls={`${event.title}-content`}
+        id={`${event.title}-header`}
+      >
+        <Priority priorityLevel={event.priorityLevel} />
+        <Typography variant='h5' component='div'>
+          {event.title}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails item xs={11} sm={10} sx={{ padding: '10px' }}>
         <Grid container>
-          <Grid item xs={12} sx={{ position: 'relative' }}>
-            <Typography variant='h5' component='div'>
-              {event.title}
-            </Typography>
-            <Priority priorityLevel={event.priorityLevel} absolute={true} />
-          </Grid>
-          <Grid
-            item
-            xs={1}
-            sm={1}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <LifeSegment lifeSegment={event.lifeSegment} />
-          </Grid>
-          <Grid item xs={11} sm={10} sx={{ padding: '10px' }}>
+          <Grid item xs={11}>
             <Typography variant='body1'>{event.description}</Typography>
             <Typography variant='body2'>
-              Time Start: {new Date(event.timeStart).toLocaleTimeString()}
+              Time Start:{' '}
+              {new Date(event.timeStart).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </Typography>
             <Typography variant='body2'>
-              Time End: {new Date(event.timeEnd).toLocaleTimeString()}
+              Time End:{' '}
+              {new Date(event.timeEnd).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
-            <DeleteEvent event={event} />
-            <EditEvent event={event} />
+          <Grid item xs={1} sx={{ position: 'relative' }}>
+            <LifeSegment lifeSegment={event.lifeSegment} />
           </Grid>
         </Grid>
-      </CardContent>
-    </Card>
+        <Grid item xs={12} sm={1} sx={{ textAlign: 'right' }}>
+          <EditEvent event={event} />
+          <DeleteEvent event={event} />
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

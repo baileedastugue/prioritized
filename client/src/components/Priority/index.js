@@ -19,21 +19,21 @@ const Priority = ({ priorityLevel, absolute }) => {
   const renderSwitch = (priorityLevel) => {
     switch (priorityLevel) {
       case 3:
-        return <KeyboardDoubleArrowUpIcon />;
+        return <KeyboardDoubleArrowUpIcon sx={{ height: '100%' }} />;
       case 2:
-        return <KeyboardArrowUpIcon />;
+        return <KeyboardArrowUpIcon sx={{ height: '100%' }} />;
       case 1:
-        return <KeyboardArrowDownIcon />;
+        return <KeyboardArrowDownIcon sx={{ height: '100%' }} />;
       case 0:
       default:
-        return <HorizontalRuleIcon />;
+        return <HorizontalRuleIcon sx={{ height: '100%' }} />;
     }
   };
 
   return (
-    <span className={absolute && classes.root}>
+    <div className={absolute && classes.root}>
       {renderSwitch(priorityLevel)}
-    </span>
+    </div>
   );
 };
 
