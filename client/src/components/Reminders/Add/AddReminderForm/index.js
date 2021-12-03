@@ -174,9 +174,18 @@ const AddReminderForm = ({ addNewReminder, open, handleClose }) => {
                 </Select>
               </FormControl>
             </Grid>
-            <DialogActions>
-              <SubmitButton>Create reminder</SubmitButton>
-            </DialogActions>
+            <Grid
+              container
+              direction='row'
+              justifyContent='flex-end'
+              alignItems='center'
+            >
+              <Grid item>
+                <DialogActions>
+                  <SubmitButton>Create reminder</SubmitButton>
+                </DialogActions>
+              </Grid>
+            </Grid>
           </Grid>
         </form>
       </DialogContent>

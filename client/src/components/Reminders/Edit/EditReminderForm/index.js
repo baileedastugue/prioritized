@@ -199,10 +199,11 @@ const EditReminder = ({ reminder, updateReminder, open, handleClose }) => {
                 </Select>
               </FormControl>
             </Grid>
-
-            <DialogActions>
-              <SubmitButton>Update reminder</SubmitButton>
-            </DialogActions>
+            <Grid item xs={12}>
+              <DialogActions>
+                <SubmitButton>Update reminder</SubmitButton>
+              </DialogActions>
+            </Grid>
           </Grid>
         </form>
       </DialogContent>
