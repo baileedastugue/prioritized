@@ -10,7 +10,7 @@ import { loadUser } from './actions/authActions';
 import Auth from './pages/Auth';
 // import Welcome from './pages/Welcome';
 
-import Board from './pages/Board';
+import Board from './pages/Kanban';
 import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
