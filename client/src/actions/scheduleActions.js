@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { setAlert } from './alertActions';
-
 import {
   VIEW_DAY_SCHEDULE_SUCCESS,
   VIEW_DAY_SCHEDULE_FAIL,
@@ -35,10 +33,8 @@ export const getDaysTasks = (date) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const error = err.response;
-    if (error) {
-      dispatch(setAlert(error.msg, 'error'));
-    }
+    const error = err.response.data;
+    console.error(error);
     dispatch({
       type: VIEW_DAY_SCHEDULE_FAIL,
     });

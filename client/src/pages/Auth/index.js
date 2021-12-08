@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AlertDiv from '../../components/AlertDiv';
-import { Container } from '@mui/material';
+import { Container, Card } from '@mui/material';
 
 import SignInForm from '../../components/authentication/SignInForm';
 import SignUpForm from '../../components/authentication/SignUpForm';
 
 const Auth = () => {
+  const [showSignUp, setShowSignUp] = useState(true);
+
+  const handleClick = () => {
+    setShowSignUp(!showSignUp);
+  };
+
   return (
-    <Container>
-      <h1>Login page</h1>
-      <h2>Sign In</h2>
-      <SignInForm />
-      <h2>Sign Up</h2>
-      <SignUpForm />
+    <Container sx={{ marginTop: '25px' }}>
+      <Card>
+        {showSignUp ? (
+          <SignUpForm handleClick={handleClick} />
+        ) : (
+          <SignInForm handleClick={handleClick} />
+        )}
+      </Card>
       <AlertDiv />
     </Container>
   );
 };
-
-// Auth.propTypes = {
-
-// }
 
 export default Auth;

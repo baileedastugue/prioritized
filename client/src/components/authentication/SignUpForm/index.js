@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid, TextField } from '@mui/material';
+import {
+  CardContent,
+  CardActions,
+  Box,
+  Button,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import SubmitButton from '../../layout/buttons/SubmitButton';
 import { registerUser } from '../../../actions/authActions';
@@ -35,61 +42,68 @@ const SignUpForm = (props) => {
   }
 
   return (
-    <form onSubmit={(e) => onSubmit(e)}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id='email'
-            name='email'
-            value={email}
-            label='Email'
-            type='email'
-            variant='standard'
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id='password'
-            name='password'
-            value={password}
-            label='Password'
-            type='password'
-            variant='standard'
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id='firstName'
-            name='firstName'
-            value={firstName}
-            label='First Name'
-            type='firstName'
-            variant='standard'
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id='lastName'
-            name='lastName'
-            value={lastName}
-            label='Last Name'
-            type='lastName'
-            variant='standard'
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <SubmitButton>Sign Up</SubmitButton>
-        </Grid>
-      </Grid>
-    </form>
+    <Box
+      component='form'
+      onSubmit={(e) => onSubmit(e)}
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '35ch' },
+        textAlign: 'center',
+      }}
+    >
+      <CardContent>
+        <Typography variant='h5' component='h2' sx={{ textAlign: 'left' }}>
+          Sign Up
+        </Typography>
+        <TextField
+          required
+          fullWidth
+          id='email'
+          name='email'
+          value={email}
+          label='Email'
+          type='email'
+          variant='standard'
+          onChange={(e) => onChange(e)}
+        />
+        <TextField
+          required
+          fullWidth
+          id='password'
+          name='password'
+          value={password}
+          label='Password'
+          type='password'
+          variant='standard'
+          onChange={(e) => onChange(e)}
+        />
+        <TextField
+          required
+          id='firstName'
+          name='firstName'
+          value={firstName}
+          label='First Name'
+          type='firstName'
+          variant='standard'
+          onChange={(e) => onChange(e)}
+        />
+        <TextField
+          required
+          id='lastName'
+          name='lastName'
+          value={lastName}
+          label='Last Name'
+          type='lastName'
+          variant='standard'
+          onChange={(e) => onChange(e)}
+        />
+      </CardContent>
+      <CardActions sx={{ justifyContent: 'space-between' }}>
+        <Button onClick={props.handleClick} sx={{ textTransform: 'none' }}>
+          Have an account? Sign in!
+        </Button>
+        <SubmitButton>Sign Up</SubmitButton>
+      </CardActions>
+    </Box>
   );
 };
 

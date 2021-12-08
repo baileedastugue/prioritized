@@ -14,6 +14,7 @@ import Priority from '../../Priority';
 import LifeSegment from '../../LifeSegment';
 
 const Reminder = ({ reminder }) => {
+  // eslint-disable-next-line no-unused-vars
   const [accordianExpanded, setAccordianExpanded] = useState(false);
   const handleExpansion = (event, expanded) => {
     setAccordianExpanded(expanded);

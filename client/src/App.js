@@ -8,7 +8,7 @@ import Store from './store';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/authActions';
 import Auth from './pages/Auth';
-import Welcome from './pages/Welcome';
+// import Welcome from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
@@ -30,8 +30,8 @@ const App = () => {
           <NavBar />
           <BrowserRouter>
             <Routes>
-              <Route exact path='/' element={<Welcome />} />
-              <Route exact path='/userAuth' element={<Auth />} />
+              <Route exact path='/' element={<Auth />} />
+              {/* <Route exact path='/userAuth' element={<Auth />} /> */}
               <Route
                 path='/dashboard'
                 element={
