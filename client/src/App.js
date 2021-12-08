@@ -9,6 +9,8 @@ import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/authActions';
 import Auth from './pages/Auth';
 // import Welcome from './pages/Welcome';
+
+import Board from './pages/Board';
 import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
@@ -37,6 +39,14 @@ const App = () => {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path='/board'
+                element={
+                  <PrivateRoute>
+                    <Board />
                   </PrivateRoute>
                 }
               />

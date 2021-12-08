@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { Backdrop, Button, Divider, Popover, Typography } from '@mui/material';
-
 import Reminder from '../Reminder';
 
 const ViewReminders = ({ dueToday, inProgress }) => {

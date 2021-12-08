@@ -17,6 +17,7 @@ import DateSelector from '../../components/Schedule/Date/DateSelector';
 import AddEvent from '../../components/Events/Add/AddEvent';
 import AddReminder from '../../components/Reminders/Add/AddReminder';
 import ViewReminders from '../../components/Reminders/ViewReminders';
+import ViewBoardButton from '../../components/Board/ViewBoardButton';
 
 const Dashboard = ({
   getAllReminders,
@@ -52,6 +53,7 @@ const Dashboard = ({
         sx={{ position: 'relative' }}
       >
         <Grid item>
+          <ViewBoardButton />
           <DateSelector />
           <ViewReminders
             dueToday={daysReminders}
