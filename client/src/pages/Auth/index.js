@@ -13,8 +13,8 @@ const Auth = () => {
   };
 
   return (
-    <Container sx={{ marginTop: '25px' }}>
-      <Card>
+    <Container sx={{ marginTop: '10%' }}>
+      <Card sx={{ maxWidth: '600px', margin: '0 auto' }}>
         {showSignUp ? (
           <SignUpForm handleClick={handleClick} />
         ) : (

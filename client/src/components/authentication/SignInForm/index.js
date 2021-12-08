@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   Box,
   Button,
+  Grid,
   TextField,
   CardContent,
   CardActions,
@@ -44,7 +45,7 @@ const SignInForm = (props) => {
       component='form'
       onSubmit={(e) => onSubmit(e)}
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '35ch' },
+        '& .MuiTextField-root': { m: 1, width: '30ch' },
         textAlign: 'center',
       }}
     >
@@ -52,26 +53,32 @@ const SignInForm = (props) => {
         <Typography variant='h5' component='h2' sx={{ textAlign: 'left' }}>
           Sign In
         </Typography>
-        <TextField
-          required
-          id='email'
-          name='email'
-          value={email}
-          label='Email'
-          type='email'
-          variant='standard'
-          onChange={(e) => onChange(e)}
-        />
-        <TextField
-          required
-          id='password'
-          name='password'
-          value={password}
-          label='Password'
-          type='password'
-          variant='standard'
-          onChange={(e) => onChange(e)}
-        />
+        <Grid container>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id='email'
+              name='email'
+              value={email}
+              label='Email'
+              type='email'
+              variant='standard'
+              onChange={(e) => onChange(e)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id='password'
+              name='password'
+              value={password}
+              label='Password'
+              type='password'
+              variant='standard'
+              onChange={(e) => onChange(e)}
+            />
+          </Grid>
+        </Grid>
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between' }}>
         <Button onClick={props.handleClick} sx={{ textTransform: 'none' }}>
