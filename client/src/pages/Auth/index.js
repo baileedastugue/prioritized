@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AlertDiv from '../../components/AlertDiv';
 import { Container, Card } from '@mui/material';
 
+import WelcomeHero from '../../components/layout/WelcomeHero';
 import SignInForm from '../../components/authentication/SignInForm';
 import SignUpForm from '../../components/authentication/SignUpForm';
 
@@ -14,6 +15,7 @@ const Auth = () => {
 
   return (
     <Container sx={{ marginTop: '10%' }}>
+      <WelcomeHero />
       <Card sx={{ maxWidth: '600px', margin: '0 auto' }}>
         {showSignUp ? (
           <SignUpForm handleClick={handleClick} />

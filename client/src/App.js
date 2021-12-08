@@ -13,7 +13,7 @@ import Dashboard from './pages/Dashboard';
 import NavBar from './components/layout/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import outerTheme from './components/layout/ThemeProvider/index.js';
+import theme from './components/layout/ThemeProvider/index.js';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <Provider store={Store}>
       <CssBaseline>
-        <ThemeProvider theme={outerTheme}>
+        <ThemeProvider theme={theme}>
           <NavBar />
           <BrowserRouter>
             <Routes>
