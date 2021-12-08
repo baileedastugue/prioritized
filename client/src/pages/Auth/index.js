@@ -6,7 +6,7 @@ import SignInForm from '../../components/authentication/SignInForm';
 import SignUpForm from '../../components/authentication/SignUpForm';
 
 const Auth = () => {
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const handleClick = () => {
     setShowSignUp(!showSignUp);
