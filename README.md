@@ -1,2 +1,2 @@
 # Prioritized
-A planner application with a hint of Kanban board, goal setting, and time frames
+A full-stack planner application with that combines your personal Kanban board, your calendar, and your to-do list.
