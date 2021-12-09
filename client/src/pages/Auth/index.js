@@ -14,7 +14,7 @@ const Auth = () => {
   };
 
   return (
-    <Container sx={{ marginTop: '10%' }}>
+    <Container sx={{ margin: '10% auto 15%' }}>
       <WelcomeHero />
       <Card sx={{ maxWidth: '600px', margin: '0 auto' }}>
         {showSignUp ? (
