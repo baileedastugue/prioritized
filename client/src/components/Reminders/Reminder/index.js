@@ -13,7 +13,7 @@ import EditReminder from '../Edit/EditReminder';
 import Priority from '../../Priority';
 import LifeSegment from '../../LifeSegment';
 
-const Reminder = ({ reminder }) => {
+const Reminder = ({ reminder, boardView }) => {
   // eslint-disable-next-line no-unused-vars
   const [accordianExpanded, setAccordianExpanded] = useState(false);
   const handleExpansion = (event, expanded) => {
@@ -29,7 +29,7 @@ const Reminder = ({ reminder }) => {
       >
         <Typography>{reminder.title}</Typography>
         {/* {!accordianExpanded && ( */}
-        <UpdateState reminder={reminder} clickable={false} />
+        {!boardView && <UpdateState reminder={reminder} clickable={false} />}
         {/* )} */}
         <Priority priority={reminder.priority} />
       </AccordionSummary>

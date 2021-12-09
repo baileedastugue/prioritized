@@ -13,7 +13,7 @@ import EditEvent from '../../Events/Edit/EditEvent';
 import DeleteEvent from '../DeleteEvent';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, boardView }) => {
   return (
     <Accordion key={event.eventId}>
       <AccordionSummary
@@ -21,10 +21,10 @@ const EventCard = ({ event }) => {
         aria-controls={`${event.title}-content`}
         id={`${event.title}-header`}
       >
-        <Priority priorityLevel={event.priorityLevel} />
-        <Typography variant='h5' component='div'>
+        <Typography variant={boardView ? 'body1' : 'h5'} component='div'>
           {event.title}
         </Typography>
+        <Priority priorityLevel={event.priorityLevel} />
       </AccordionSummary>
       <AccordionDetails item xs={11} sm={10} sx={{ padding: '10px' }}>
         <Grid container>

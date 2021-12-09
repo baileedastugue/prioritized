@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Grid, Typography } from '@mui/material';
+import React from 'react';
+import { Grid, Container, Typography } from '@mui/material';
 import ScheduleButton from '../../components/layout/buttons/ScheduleButton';
 import AlertDiv from '../../components/AlertDiv';
 import PropTypes from 'prop-types';
@@ -23,8 +23,20 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
     (reminder) => reminder.state === 3
   );
 
+  const currentTime = new Date().toISOString();
+
+  const notStartedEvents = daysEvents.filter(
+    (event) => currentTime < event.timeStart
+  );
+  const inProgressEvents = daysEvents.filter(
+    (event) => currentTime >= event.timeStart && currentTime <= event.timeEnd
+  );
+  const completedEvents = daysEvents.filter(
+    (event) => currentTime > event.timeEnd
+  );
+
   return (
-    <Fragment>
+    <Container maxWidth='xl'>
       <Grid
         container
         direction='row'
@@ -52,12 +64,13 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
           <ScheduleButton />
         </Grid>
       </Grid>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
           <BoardStatus
             column={0}
             title='Not started'
             reminders={notStartedReminders}
+            events={notStartedEvents}
           />
         </Grid>
 
@@ -66,6 +79,7 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
             column={1}
             title='In progress'
             reminders={inProgressReminders}
+            events={inProgressEvents}
           />
         </Grid>
         <Grid item xs={12} md={3}>
@@ -73,6 +87,7 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
             column={2}
             title='Complete'
             reminders={completeReminders}
+            events={completedEvents}
           />
         </Grid>
         <Grid item xs={12} md={3}>
@@ -84,7 +99,7 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
         </Grid>
       </Grid>
       <AlertDiv />
-    </Fragment>
+    </Container>
   );
 };
 

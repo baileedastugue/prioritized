@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Reminder from '../../Reminders/Reminder';
+import EventCard from '../../Events/EventCard';
 import theme from '../../layout/ThemeProvider/index';
 const BoardStatus = ({ column, reminders, events, title }) => {
-  console.log(theme.palette);
   const renderSwitch = (column) => {
     switch (column) {
       case 0:
@@ -22,18 +22,16 @@ const BoardStatus = ({ column, reminders, events, title }) => {
     <Box
       backgroundColor={renderSwitch(column)}
       p={1}
-      my={1}
       sx={{ borderRadius: '4px' }}
     >
       <Typography variant='h5' component='p'>
         {title}
       </Typography>
       {reminders.map((reminder) => (
-        <Reminder reminder={reminder} />
+        <Reminder reminder={reminder} boardView={true} />
       ))}
-      {/* {events.map((event) => (
-        <li key={event.eventId}>{event.title}</li>
-      ))} */}
+      {events &&
+        events.map((event) => <EventCard event={event} boardView={true} />)}
     </Box>
   );
 };

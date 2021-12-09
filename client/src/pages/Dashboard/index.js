@@ -1,8 +1,8 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
-import Grid from '@mui/material/Grid';
+import { Container, Grid } from '@mui/material';
 import AlertDiv from '../../components/AlertDiv';
 
 import {
@@ -44,7 +44,7 @@ const Dashboard = ({
   if (!isAuth) return <Navigate to='/' />;
 
   return (
-    <Fragment>
+    <Container maxWidth='xl'>
       <Grid
         container
         direction='row'
@@ -65,7 +65,7 @@ const Dashboard = ({
       <AddEvent />
       <AddReminder />
       <AlertDiv />
-    </Fragment>
+    </Container>
   );
 };
 

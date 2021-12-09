@@ -36,7 +36,6 @@ export const addNewEvent = (eventInfo) => async (dispatch, getState) => {
       'Content-Type': 'application/json',
     },
   };
-  console.log(eventInfo);
   const body = JSON.stringify(eventInfo);
   try {
     const res = await axios.post('/events', body, config);
