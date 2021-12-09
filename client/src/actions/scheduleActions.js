@@ -8,7 +8,6 @@ import {
 
 export const setDate = (date) => async (dispatch) => {
   date.setHours(0, 0, 0, 0);
-
   try {
     dispatch({
       type: SET_SCHEDULE_DATE_SUCCESS,

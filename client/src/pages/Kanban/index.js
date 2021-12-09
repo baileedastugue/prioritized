@@ -7,7 +7,13 @@ import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 import BoardStatus from '../../components/Board/BoardStatus';
 
-const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
+const Kanban = ({
+  isAuth,
+  daysEvents,
+  daysReminders,
+  allReminders,
+  selectedDate,
+}) => {
   if (!isAuth) return <Navigate to='/' />;
 
   const notStartedReminders = daysReminders.filter(
@@ -59,7 +65,7 @@ const Kanban = ({ isAuth, daysEvents, daysReminders, allReminders }) => {
               },
             }}
           >
-            Your board
+            Your board on {new Date(selectedDate).toLocaleDateString([], {})}
           </Typography>
           <ScheduleButton />
         </Grid>

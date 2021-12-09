@@ -11,8 +11,14 @@ import DateTitle from '../DateTitle';
 
 import { setDate } from '../../../../actions/scheduleActions';
 
-const DateSelector = ({ setDate }) => {
-  const [calDate, setCalDate] = useState(new Date());
+const DateSelector = ({ setDate, selectedDate }) => {
+  const currentDate =
+    Object.keys(selectedDate).length === 0
+      ? new Date()
+      : new Date(selectedDate);
+
+  const [calDate, setCalDate] = useState(currentDate);
+  console.log(calDate);
   const [open, setOpen] = useState(false);
 
   const onClick = () => {
@@ -29,15 +35,7 @@ const DateSelector = ({ setDate }) => {
 
   return (
     <Fragment>
-      {/* <IconButton
-        variant='outlined'
-        onClick={onIconClick}
-        sx={{ display: 'inline', padding: 0 }}
-      >
-        <EventIcon />
-      </IconButton> */}
       <DateTitle onClick={onClick} date={calDate} />
-
       <Dialog open={open} onClose={handleClose}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StaticDatePicker
